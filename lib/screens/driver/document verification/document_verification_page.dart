@@ -78,6 +78,10 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
                 ),
               ],
             ),
+            CustomTextFormField(
+              labelText: "Years of Experience",
+              controller: controller,
+            ),
           ],
         ),
       ),

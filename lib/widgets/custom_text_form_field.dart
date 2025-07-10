@@ -29,7 +29,7 @@ class CustomTextFormField extends StatelessWidget {
       controller: controller,
       keyboardType: keyboardType,
       decoration: InputDecoration(
-        labelText: labelText,
+        hintText: labelText,
         counterText: "",
         suffixIcon: suffixIcon,
         focusedBorder: OutlineInputBorder(

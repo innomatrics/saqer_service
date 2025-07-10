@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:saqer_services/screens/customer/welcome_screen/welcome_screen.dart';
-import 'package:saqer_services/screens/driver/auth/controller/driver_auth_uicontroller.dart';
+import 'package:saqer_services/screens/driver/document%20verification/controller/document_verification_ui_controller.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => DriverAuthUicontroller()),
+        ChangeNotifierProvider(
+          create: (_) => DocumentVerificationUiController(),
+        ),
       ],
       child: const MyApp(),
     ),

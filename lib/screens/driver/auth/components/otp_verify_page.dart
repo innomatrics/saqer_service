@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:saqer_services/constants/constants.dart';
+import 'package:saqer_services/screens/driver/document%20verification/document_verification_page.dart';
+import 'package:saqer_services/util/util.dart';
 import 'package:saqer_services/widgets/custom_elevated_button.dart';
 
 class OtpVerifyPage extends StatefulWidget {
@@ -82,7 +84,8 @@ class _OtpVerifyPageState extends State<OtpVerifyPage> {
                 height: size.height * 0.07,
                 width: size.width * 1,
                 child: CustomElevatedButton(
-                  onPressed: () {},
+                  onPressed: () =>
+                      justNavigate(context, const DocumentVerificationPage()),
                   color: AppColors.mainColor,
                   child: const Text(
                     "Sumbit",

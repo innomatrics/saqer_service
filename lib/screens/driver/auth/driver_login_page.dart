@@ -51,13 +51,26 @@ class _DriverLoginPageState extends State<DriverLoginPage> {
               CustomTextFormField(
                 labelText: "Mobile Number",
                 controller: mobileController,
+                maxLength: 10,
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Please enter your mobile number";
+                  }
+                  return null;
+                },
               ),
               SizedBox(height: size.height * 0.2),
               SizedBox(
                 height: size.height * 0.07,
                 width: size.width * 1,
                 child: CustomElevatedButton(
-                  onPressed: () => justNavigate(context, const OtpVerifyPage()),
+                  onPressed: () => justNavigate(
+                    context,
+                    OtpVerifyPage(
+                      phoneNumber: int.parse(mobileController.text),
+                    ),
+                  ),
                   child: const Text(
                     "Login",
                     style: TextStyle(

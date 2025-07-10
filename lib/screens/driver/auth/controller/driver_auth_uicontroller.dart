@@ -43,4 +43,27 @@ class DriverAuthUicontroller extends ChangeNotifier {
       },
     );
   }
+
+  //checkbox
+  bool _accepted = false;
+
+  bool get acceptedTerms => _accepted;
+
+  void setAccepted(bool value) {
+    _accepted = value;
+    notifyListeners();
+  }
+
+  Widget acceptedCheckBox() {
+    return Consumer<DriverAuthUicontroller>(
+      builder: (context, provider, child) {
+        return Checkbox(
+          activeColor: AppColors.mainColor,
+          checkColor: Colors.white,
+          value: provider.acceptedTerms,
+          onChanged: (value) => provider.setAccepted(value!),
+        );
+      },
+    );
+  }
 }

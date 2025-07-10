@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:saqer_services/screens/driver/auth/controller/driver_auth_uicontroller.dart';
 import 'package:saqer_services/widgets/custom_text_form_field.dart';
 
 class DriverLoginPage extends StatelessWidget {
@@ -43,6 +45,7 @@ class DriverLoginPage extends StatelessWidget {
                 maxLine: 1,
                 controller: TextEditingController(),
               ),
+              context.read<DriverAuthUicontroller>().genderDropDown(),
             ],
           ),
         ),

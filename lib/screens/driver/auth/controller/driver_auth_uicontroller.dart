@@ -21,6 +21,9 @@ class DriverAuthUicontroller extends ChangeNotifier {
             .toList();
         return DropdownButtonFormField<String>(
           decoration: InputDecoration(
+            hintText: "Gender",
+            filled: true,
+            fillColor: Colors.white,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: AppColors.inputBorderColor),

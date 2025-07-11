@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saqer_services/screens/customer/bottom_nav_bar/bottom_nav_bar.dart';
-import 'package:saqer_services/screens/driver/auth/driver_login_page.dart';
+import 'package:saqer_services/screens/driver/screens/auth/driver_login_page.dart';
 import 'package:saqer_services/util/util.dart';
 
 class WelcomeScreen extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saqer_services/constants/constants.dart';
-import 'package:saqer_services/screens/driver/auth/components/otp_verify_page.dart';
+import 'package:saqer_services/screens/driver/screens/auth/components/otp_verify_page.dart';
 import 'package:saqer_services/util/util.dart';
 import 'package:saqer_services/widgets/custom_elevated_button.dart';
 import 'package:saqer_services/widgets/custom_text_form_field.dart';

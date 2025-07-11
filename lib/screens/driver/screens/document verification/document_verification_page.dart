@@ -1,17 +1,10 @@
 import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
-import 'package:saqer_services/screens/driver/screens/bottom%20nav/bottom_nav_bar.dart';
 import 'package:saqer_services/screens/driver/screens/document%20verification/controller/document_verification_ui_controller.dart';
-import 'package:saqer_services/screens/driver/provider/driver_document_provider.dart';
-import 'package:saqer_services/util/util.dart';
-import 'package:saqer_services/widgets/custom_elevated_button.dart';
 import 'package:saqer_services/widgets/custom_text_form_field.dart';
-import 'package:saqer_services/widgets/loader.dart';
 
 class DocumentVerificationPage extends StatefulWidget {
   const DocumentVerificationPage({super.key});
@@ -188,64 +181,64 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
                 controller: yearsOfExperienceController,
               ),
               driverUiController.vehicleTypeDropDown(),
-              SizedBox(
-                height: size.height * 0.07,
-                width: size.width * 1,
-                child:
-                    Consumer2<
-                      DriverDocumentProvider,
-                      DocumentVerificationUiController
-                    >(
-                      builder: (context, provider, uiController, child) {
-                        final isLoading = provider.isLoader;
-                        return CustomElevatedButton(
-                          child: isLoading
-                              ? const Loader()
-                              : const Text(
-                                  "Submit",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                          onPressed: () async {
-                            final int age = uiController.calculateAge(
-                              DateTime.parse(dobController.text),
-                            );
-                            final bool
-                            isSuccess = await provider.addDriverDetails(
-                              context: context,
-                              name: nameController.text,
-                              email: emailController.text,
-                              mobileNumber: phoneNumberController.text,
-                              age: age,
-                              dob: DateTime.parse(dobController.text),
-                              address: addressController.text,
-                              city: cityController.text,
-                              driverImage: uiController.driverImageFile!,
-                              idCartImage: uiController.idCartImageFile!,
-                              licenceImage: uiController.licenseFrontSide!,
-                              licenceBack: uiController.licenseBackSideImage!,
-                              licenceNumber: licenceNumberController.text,
-                              yearsOfExperience: int.parse(
-                                yearsOfExperienceController.text,
-                              ),
-                              joinedAt: Timestamp.now(),
-                              vehicleAutomationType: uiController.vehicleType!,
-                            );
+              // SizedBox(
+              //   height: size.height * 0.07,
+              //   width: size.width * 1,
+              //   child:
+              //       Consumer2<
+              //         DriverDocumentProvider,
+              //         DocumentVerificationUiController
+              //       >(
+              //         builder: (context, provider, uiController, child) {
+              //           final isLoading = provider.isLoader;
+              //           return CustomElevatedButton(
+              //             child: isLoading
+              //                 ? const Loader()
+              //                 : const Text(
+              //                     "Submit",
+              //                     style: TextStyle(
+              //                       color: Colors.white,
+              //                       fontSize: 16,
+              //                       fontWeight: FontWeight.bold,
+              //                     ),
+              //                   ),
+              //             onPressed: () async {
+              //               // final int age = uiController.calculateAge(
+              //               //   DateTime.parse(dobController.text),
+              //               // );
+              //               // final bool
+              //               // isSuccess = await provider.addDriverDetails(
+              //               //   context: context,
+              //               //   name: nameController.text,
+              //               //   email: emailController.text,
+              //               //   mobileNumber: phoneNumberController.text,
+              //               //   age: age,
+              //               //   dob: DateTime.parse(dobController.text),
+              //               //   address: addressController.text,
+              //               //   city: cityController.text,
+              //               //   driverImage: uiController.driverImageFile!,
+              //               //   idCartImage: uiController.idCartImageFile!,
+              //               //   licenceImage: uiController.licenseFrontSide!,
+              //               //   licenceBack: uiController.licenseBackSideImage!,
+              //               //   licenceNumber: licenceNumberController.text,
+              //               //   yearsOfExperience: int.parse(
+              //               //     yearsOfExperienceController.text,
+              //               //   ),
+              //               //   joinedAt: Timestamp.now(),
+              //               //   vehicleAutomationType: uiController.vehicleType!,
+              //               // );
 
-                            if (isSuccess && context.mounted) {
-                              justNavigateReplacement(
-                                context,
-                                const BottomNavBar(),
-                              );
-                            }
-                          },
-                        );
-                      },
-                    ),
-              ),
+              //               // if (isSuccess && context.mounted) {
+              //               //   justNavigateReplacement(
+              //               //     context,
+              //               //     const BottomNavBar(),
+              //               //   );
+              //               // }
+              //             },
+              //           );
+              //         },
+              //       ),
+              // ),
             ],
           ),
         ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:saqer_services/constants/constants.dart';
-import 'package:saqer_services/screens/driver/document%20verification/document_verification_page.dart';
+import 'package:saqer_services/screens/driver/screens/document%20verification/document_verification_page.dart';
 import 'package:saqer_services/util/util.dart';
 import 'package:saqer_services/widgets/custom_elevated_button.dart';
 

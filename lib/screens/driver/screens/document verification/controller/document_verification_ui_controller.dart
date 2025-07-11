@@ -186,7 +186,7 @@ class DocumentVerificationUiController extends ChangeNotifier {
           builder: (context) => Container(
             padding: const EdgeInsets.all(20),
             height: size.height * 0.2,
-            width: size.width * 1,
+            width: size.width,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
               color: Colors.white,
@@ -230,22 +230,32 @@ class DocumentVerificationUiController extends ChangeNotifier {
             color: AppColors.mainColor,
             padding: EdgeInsets.all(16),
           ),
-          child: Column(
-            children: [
-              Center(child: Icon(logo, size: 30, color: AppColors.mainColor)),
-              Center(
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
+          child: image.path.isNotEmpty
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.file(
+                    image,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
                   ),
+                )
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(logo, size: 30, color: AppColors.mainColor),
+                    const SizedBox(height: 5),
+                    Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
         ),
       ),
     );

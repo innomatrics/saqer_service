@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:saqer_services/screens/customer/welcome_screen/welcome_screen.dart';
-import 'package:saqer_services/screens/driver/document%20verification/controller/document_verification_ui_controller.dart';
+import 'package:saqer_services/screens/driver/screens/document%20verification/controller/document_verification_ui_controller.dart';
 import 'package:saqer_services/screens/driver/provider/driver_document_provider.dart';
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await Firebase.initializeApp();
   runApp(
     MultiProvider(
       providers: [

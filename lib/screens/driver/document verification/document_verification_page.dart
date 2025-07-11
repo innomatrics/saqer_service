@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:saqer_services/constants/constants.dart';
 import 'package:saqer_services/widgets/custom_text_form_field.dart';
@@ -40,41 +43,34 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
-                  height: size.height * 0.2,
-                  width: size.width * 0.4,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColors.inputBorderColor),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Licence",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                _customDottedBorders(
+                  logo: Icons.person,
+                  title: "Driver's License",
+                  size: size,
+                  image: File(""),
                 ),
-                Container(
-                  height: size.height * 0.2,
-                  width: size.width * 0.4,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColors.inputBorderColor),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      "Id Card",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                _customDottedBorders(
+                  image: File(""),
+                  logo: Icons.camera_alt_outlined,
+                  title: "Id Card Front",
+                  size: size,
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                _customDottedBorders(
+                  logo: Icons.camera_alt_outlined,
+                  title: "Id Card Back",
+                  size: size,
+                  image: File(""),
+                ),
+                _customDottedBorders(
+                  image: File(""),
+                  logo: Icons.camera_alt_outlined,
+                  title: "Id Card Front",
+                  size: size,
                 ),
               ],
             ),
@@ -112,5 +108,53 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
         ),
       ],
     );
+  }
+
+  Widget _customDottedBorders({
+    required IconData logo,
+    required String title,
+    required File image,
+    required Size size,
+  }) {
+    return image.path.isEmpty
+        ? SizedBox(
+            height: size.height * 0.1,
+            width: size.width * 0.3,
+            child: DottedBorder(
+              options: const RectDottedBorderOptions(
+                dashPattern: [10, 5, 10, 5],
+                strokeWidth: 1,
+                color: AppColors.mainColor,
+                padding: EdgeInsets.all(16),
+              ),
+              child: Column(
+                children: [
+                  Center(
+                    child: Icon(logo, size: 30, color: AppColors.mainColor),
+                  ),
+                  Center(
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        : Container(
+            height: size.height * 0.1,
+            width: size.width * 0.3,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: FileImage(image),
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
   }
 }

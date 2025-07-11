@@ -46,4 +46,6 @@ class DocumentVerificationUiController extends ChangeNotifier {
       },
     );
   }
+
+  //driver image
 }

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
+import 'package:saqer_services/util/image_pick_util.dart';
 
 class DocumentVerificationUiController extends ChangeNotifier {
   //vehicle automation type
@@ -47,5 +50,64 @@ class DocumentVerificationUiController extends ChangeNotifier {
     );
   }
 
+  //images
+
   //driver image
+  File? driverImageFile;
+
+  void setDriverImage(File image) {
+    driverImageFile = image;
+    notifyListeners();
+  }
+
+  void pickDriverImage({required BuildContext context}) async {
+    final pickedFile = await ImagePickUtil.pickImage(context: context);
+    if (pickedFile!.path.isNotEmpty) {
+      setDriverImage(pickedFile);
+    }
+  }
+
+  //id card image
+  File? idCartImageFile;
+
+  void setIdCartImage(File image) {
+    idCartImageFile = image;
+    notifyListeners();
+  }
+
+  void setIdCartImageFile({required BuildContext context}) async {
+    final pickedFile = await ImagePickUtil.pickImage(context: context);
+    if (pickedFile!.path.isNotEmpty) {
+      setIdCartImage(pickedFile);
+    }
+  }
+
+  //licence image
+  File? licenceImageFile;
+  void setLicenceImage(File image) {
+    licenceImageFile = image;
+    notifyListeners();
+  }
+
+  void setLicenceImageFile({required BuildContext context}) async {
+    final pickedFile = await ImagePickUtil.pickImage(context: context);
+    if (pickedFile!.path.isNotEmpty) {
+      setLicenceImage(pickedFile);
+    }
+  }
+
+  //driver details
+  File? driverDetailsImageFile;
+
+  void setDriverDetailsImage(File image) {
+    driverDetailsImageFile = image;
+    notifyListeners();
+  }
+
+  void setDriverDetailsImageFile({required BuildContext context}) async {
+    final pickedFile = await ImagePickUtil.pickImage(context: context);
+    if (pickedFile!.path.isNotEmpty) {
+      setDriverDetailsImage(pickedFile);
+    }
+  }
 }

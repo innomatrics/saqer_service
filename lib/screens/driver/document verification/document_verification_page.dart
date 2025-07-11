@@ -24,61 +24,63 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
         padding: const EdgeInsets.all(20),
         height: size.height * 1,
         width: size.width * 1,
-        child: Column(
-          spacing: size.height * 0.02,
-          children: [
-            const SizedBox(height: 30),
-            _buildImagePicker(isDriverImage: true),
-            CustomTextFormField(labelText: "Name", controller: controller),
-            CustomTextFormField(labelText: "Email", controller: controller),
-            CustomTextFormField(
-              labelText: "Licence No",
-              controller: controller,
-            ),
-            CustomTextFormField(
-              labelText: "Address",
-              controller: controller,
-              maxLine: 3,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _customDottedBorders(
-                  logo: Icons.person,
-                  title: "Driver's License",
-                  size: size,
-                  image: File(""),
-                ),
-                _customDottedBorders(
-                  image: File(""),
-                  logo: Icons.camera_alt_outlined,
-                  title: "Id Card Front",
-                  size: size,
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _customDottedBorders(
-                  logo: Icons.camera_alt_outlined,
-                  title: "Id Card Back",
-                  size: size,
-                  image: File(""),
-                ),
-                _customDottedBorders(
-                  image: File(""),
-                  logo: Icons.camera_alt_outlined,
-                  title: "Id Card Front",
-                  size: size,
-                ),
-              ],
-            ),
-            CustomTextFormField(
-              labelText: "Years of Experience",
-              controller: controller,
-            ),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            spacing: size.height * 0.02,
+            children: [
+              const SizedBox(height: 30),
+              _buildImagePicker(isDriverImage: true),
+              CustomTextFormField(labelText: "Name", controller: controller),
+              CustomTextFormField(labelText: "Email", controller: controller),
+              CustomTextFormField(
+                labelText: "Licence No",
+                controller: controller,
+              ),
+              CustomTextFormField(
+                labelText: "Address",
+                controller: controller,
+                maxLine: 3,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _customDottedBorders(
+                    logo: Icons.person,
+                    title: "Driver's License",
+                    size: size,
+                    image: File(""),
+                  ),
+                  _customDottedBorders(
+                    image: File(""),
+                    logo: Icons.camera_alt_outlined,
+                    title: "Id Card Front",
+                    size: size,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _customDottedBorders(
+                    logo: Icons.camera_alt_outlined,
+                    title: "Id Card Back",
+                    size: size,
+                    image: File(""),
+                  ),
+                  _customDottedBorders(
+                    image: File(""),
+                    logo: Icons.camera_alt_outlined,
+                    title: "Id Card Front",
+                    size: size,
+                  ),
+                ],
+              ),
+              CustomTextFormField(
+                labelText: "Years of Experience",
+                controller: controller,
+              ),
+            ],
+          ),
         ),
       ),
     );

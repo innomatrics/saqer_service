@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +59,7 @@ class DocumentVerificationUiController extends ChangeNotifier {
   //driver image
   File? driverImageFile;
 
-  void setDriverImage(File image) {
+  void setDriver(File image) {
     driverImageFile = image;
     notifyListeners();
   }
@@ -74,19 +73,19 @@ class DocumentVerificationUiController extends ChangeNotifier {
       source: source,
     );
     if (pickedFile!.path.isNotEmpty) {
-      setDriverImage(pickedFile);
+      setDriver(pickedFile);
     }
   }
 
   //id card image
   File? idCartImageFile;
 
-  void setIdCartImage(File image) {
+  void setIdCartFront(File image) {
     idCartImageFile = image;
     notifyListeners();
   }
 
-  void setIdCartImageFile({
+  void setIdCartImageFront({
     required BuildContext context,
     required ImageSource source,
   }) async {
@@ -94,19 +93,20 @@ class DocumentVerificationUiController extends ChangeNotifier {
       context: context,
       source: source,
     );
-    if (pickedFile!.path.isNotEmpty) {
-      setIdCartImage(pickedFile);
+    if (pickedFile!.path.isNotEmpty && context.mounted) {
+      setIdCartFront(pickedFile);
+      Navigator.pop(context);
     }
   }
 
   //licence image
-  File? licenceImageFile;
-  void setLicenceImage(File image) {
-    licenceImageFile = image;
+  File? licenseFrontSide;
+  void setLicenceFront(File image) {
+    licenseFrontSide = image;
     notifyListeners();
   }
 
-  void setLicenceImageFile({
+  void setLicenceFfrontImage({
     required BuildContext context,
     required ImageSource source,
   }) async {
@@ -114,20 +114,21 @@ class DocumentVerificationUiController extends ChangeNotifier {
       context: context,
       source: source,
     );
-    if (pickedFile!.path.isNotEmpty) {
-      setLicenceImage(pickedFile);
+    if (pickedFile!.path.isNotEmpty && context.mounted) {
+      setLicenceFront(pickedFile);
+      Navigator.pop(context);
     }
   }
 
   //licence backside
   File? idCartBackSideImage;
 
-  void setLicenceBacksideImage(File image) {
+  void setIdCartBack(File image) {
     idCartBackSideImage = image;
     notifyListeners();
   }
 
-  void setIdCartBackSideImage({
+  void setIdCartBackSideFile({
     required BuildContext context,
     required ImageSource source,
   }) async {
@@ -135,20 +136,21 @@ class DocumentVerificationUiController extends ChangeNotifier {
       context: context,
       source: source,
     );
-    if (pickedFile!.path.isNotEmpty) {
-      setLicenceBacksideImage(pickedFile);
+    if (pickedFile!.path.isNotEmpty && context.mounted) {
+      setIdCartBack(pickedFile);
+      Navigator.pop(context);
     }
   }
 
   //driver details
-  File? idCartBackSideImageFile;
+  File? licenseBackSideImage;
 
-  void setidCartBackSide(File image) {
-    idCartBackSideImageFile = image;
+  void setLicenseBackSide(File image) {
+    licenseBackSideImage = image;
     notifyListeners();
   }
 
-  void setDriverDetailsImageFile({
+  void setLicenseBackSideImageFile({
     required BuildContext context,
     required ImageSource source,
   }) async {
@@ -156,8 +158,9 @@ class DocumentVerificationUiController extends ChangeNotifier {
       context: context,
       source: source,
     );
-    if (pickedFile!.path.isNotEmpty) {
-      setidCartBackSide(pickedFile);
+    if (pickedFile!.path.isNotEmpty && context.mounted) {
+      setLicenseBackSide(pickedFile);
+      Navigator.pop(context);
     }
   }
 
@@ -165,150 +168,81 @@ class DocumentVerificationUiController extends ChangeNotifier {
   Widget customDottedBorders({
     required IconData logo,
     required String title,
+    required BuildContext context,
     required File image,
     required Size size,
+    required VoidCallback cameraOnTap,
+    required VoidCallback galleryOnTap,
   }) {
-    return Consumer<DocumentVerificationUiController>(
-      builder: (context, provider, child) {
-        return image.path.isEmpty
-            ? GestureDetector(
-                onTap: () {
-                  showMaterialModalBottomSheet(
-                    context: context,
-                    builder: (context) => Container(
-                      padding: const EdgeInsets.all(20),
-                      height: size.height * 0.2,
-                      width: size.width * 1,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: const Icon(
-                              Icons.camera_alt_outlined,
-                              color: AppColors.mainColor,
-                            ),
-                            title: const Text(
-                              "Camera",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                              ),
-                            ),
-                            onTap: () {
-                              if (title == "Driver's License") {
-                                provider.setIdCartImageFile(
-                                  context: context,
-                                  source: ImageSource.camera,
-                                );
-                              } else if (title == "Driver's Licence\n Back") {
-                                provider.setLicenceImageFile(
-                                  context: context,
-                                  source: ImageSource.camera,
-                                );
-                              } else if (title == "Id Card Front") {
-                                provider.setIdCartImageFile(
-                                  context: context,
-                                  source: ImageSource.camera,
-                                );
-                              } else {
-                                provider.setIdCartBackSideImage(
-                                  context: context,
-                                  source: ImageSource.camera,
-                                );
-                              }
-                            },
-                          ),
-                          ListTile(
-                            leading: const Icon(
-                              Icons.image_outlined,
-                              color: AppColors.mainColor,
-                            ),
-                            title: const Text(
-                              "Gallery",
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                              ),
-                            ),
-                            onTap: () {
-                              if (title == "Driver's License") {
-                                provider.setIdCartImageFile(
-                                  context: context,
-                                  source: ImageSource.gallery,
-                                );
-                              } else if (title == "Driver's Licence\n Back") {
-                                provider.setLicenceImageFile(
-                                  context: context,
-                                  source: ImageSource.gallery,
-                                );
-                              } else if (title == "Id Card Front") {
-                                provider.setIdCartImageFile(
-                                  context: context,
-                                  source: ImageSource.gallery,
-                                );
-                              } else {
-                                provider.setIdCartBackSideImage(
-                                  context: context,
-                                  source: ImageSource.gallery,
-                                );
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                  log(title);
-                },
-                child: SizedBox(
-                  height: size.height * 0.12,
-                  width: size.width * 0.3,
-                  child: DottedBorder(
-                    options: const RectDottedBorderOptions(
-                      dashPattern: [10, 5, 10, 5],
-                      strokeWidth: 1,
-                      color: AppColors.mainColor,
-                      padding: EdgeInsets.all(16),
-                    ),
-                    child: Column(
-                      children: [
-                        Center(
-                          child: Icon(
-                            logo,
-                            size: 30,
-                            color: AppColors.mainColor,
-                          ),
-                        ),
-                        Center(
-                          child: Text(
-                            title,
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+    return InkWell(
+      onTap: () {
+        showMaterialModalBottomSheet(
+          context: context,
+          builder: (context) => Container(
+            padding: const EdgeInsets.all(20),
+            height: size.height * 0.2,
+            width: size.width * 1,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(
+                    Icons.camera_alt_outlined,
+                    color: AppColors.mainColor,
                   ),
-                ),
-              )
-            : Container(
-                height: size.height * 0.1,
-                width: size.width * 0.3,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: FileImage(image),
-                    fit: BoxFit.cover,
+                  title: const Text(
+                    "Camera",
+                    style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
+                  onTap: cameraOnTap,
                 ),
-              );
+                ListTile(
+                  leading: const Icon(
+                    Icons.image_outlined,
+                    color: AppColors.mainColor,
+                  ),
+                  title: const Text(
+                    "Gallery",
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                  onTap: galleryOnTap,
+                ),
+              ],
+            ),
+          ),
+        );
       },
+      child: SizedBox(
+        height: size.height * 0.12,
+        width: size.width * 0.3,
+        child: DottedBorder(
+          options: const RectDottedBorderOptions(
+            dashPattern: [10, 5, 10, 5],
+            strokeWidth: 1,
+            color: AppColors.mainColor,
+            padding: EdgeInsets.all(16),
+          ),
+          child: Column(
+            children: [
+              Center(child: Icon(logo, size: 30, color: AppColors.mainColor)),
+              Center(
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 

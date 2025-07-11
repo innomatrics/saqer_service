@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
 import 'package:saqer_services/screens/driver/document%20verification/controller/document_verification_ui_controller.dart';
@@ -36,34 +37,102 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  driverUiController.customDottedBorders(
-                    logo: Icons.person,
-                    title: "Driver's License",
-                    size: size,
-                    image: driverUiController.licenceImageFile ?? File(""),
+                  Consumer<DocumentVerificationUiController>(
+                    builder: (context, provider, child) {
+                      return provider.customDottedBorders(
+                        logo: Icons.person,
+                        title: "Driver License\n Front",
+                        context: context,
+                        image: provider.licenseFrontSide ?? File(""),
+                        size: size,
+                        cameraOnTap: () {
+                          provider.setLicenceFfrontImage(
+                            context: context,
+                            source: ImageSource.camera,
+                          );
+                        },
+                        galleryOnTap: () {
+                          provider.setLicenceFfrontImage(
+                            context: context,
+                            source: ImageSource.gallery,
+                          );
+                        },
+                      );
+                    },
                   ),
-                  driverUiController.customDottedBorders(
-                    logo: Icons.camera_alt_outlined,
-                    title: "Driver's Licence\n Back",
-                    size: size,
-                    image: driverUiController.idCartBackSideImage ?? File(""),
+                  Consumer<DocumentVerificationUiController>(
+                    builder: (context, provider, child) {
+                      return provider.customDottedBorders(
+                        logo: Icons.person,
+                        title: "Driver License\n Back",
+                        context: context,
+                        image: provider.licenseBackSideImage ?? File(""),
+                        size: size,
+                        cameraOnTap: () {
+                          provider.setLicenseBackSideImageFile(
+                            context: context,
+                            source: ImageSource.camera,
+                          );
+                        },
+                        galleryOnTap: () {
+                          provider.setLicenseBackSideImageFile(
+                            context: context,
+                            source: ImageSource.gallery,
+                          );
+                        },
+                      );
+                    },
                   ),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  driverUiController.customDottedBorders(
-                    logo: Icons.camera_alt_outlined,
-                    title: "Id Card Front",
-                    size: size,
-                    image: driverUiController.idCartImageFile ?? File(""),
+                  Consumer<DocumentVerificationUiController>(
+                    builder: (context, provider, child) {
+                      return provider.customDottedBorders(
+                        logo: Icons.person,
+                        title: "Id Cart Front",
+                        context: context,
+                        image: provider.idCartImageFile ?? File(""),
+                        size: size,
+                        cameraOnTap: () {
+                          provider.setIdCartImageFront(
+                            context: context,
+                            source: ImageSource.camera,
+                          );
+                        },
+                        galleryOnTap: () {
+                          provider.setIdCartImageFront(
+                            context: context,
+                            source: ImageSource.gallery,
+                          );
+                        },
+                      );
+                    },
                   ),
-                  driverUiController.customDottedBorders(
-                    image: driverUiController.idCartBackSideImage ?? File(""),
-                    logo: Icons.camera_alt_outlined,
-                    title: "Id Card Back",
-                    size: size,
+                  Consumer<DocumentVerificationUiController>(
+                    builder: (context, provider, child) {
+                      return provider.customDottedBorders(
+                        logo: Icons.person,
+                        title: "Id Cart Back",
+                        context: context,
+                        image: provider.idCartBackSideImage ?? File(""),
+                        size: size,
+                        cameraOnTap: () {
+                          provider.setIdCartBackSideFile(
+                            context: context,
+                            source: ImageSource.camera,
+                          );
+                        },
+                        galleryOnTap: () {
+                          provider.setIdCartBackSideFile(
+                            context: context,
+                            source: ImageSource.gallery,
+                          );
+                        },
+                      );
+                    },
                   ),
                 ],
               ),

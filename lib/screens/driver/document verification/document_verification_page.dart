@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
@@ -31,8 +32,45 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
             children: [
               const SizedBox(height: 30),
               _buildImagePicker(isDriverImage: true),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  driverUiController.customDottedBorders(
+                    logo: Icons.person,
+                    title: "Driver's License",
+                    size: size,
+                    image: driverUiController.licenceImageFile ?? File(""),
+                  ),
+                  driverUiController.customDottedBorders(
+                    logo: Icons.camera_alt_outlined,
+                    title: "Driver's Licence\n Back",
+                    size: size,
+                    image: driverUiController.idCartBackSideImage ?? File(""),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  driverUiController.customDottedBorders(
+                    logo: Icons.camera_alt_outlined,
+                    title: "Id Card Front",
+                    size: size,
+                    image: driverUiController.idCartImageFile ?? File(""),
+                  ),
+                  driverUiController.customDottedBorders(
+                    image: driverUiController.idCartBackSideImage ?? File(""),
+                    logo: Icons.camera_alt_outlined,
+                    title: "Id Card Back",
+                    size: size,
+                  ),
+                ],
+              ),
               CustomTextFormField(labelText: "Name", controller: controller),
               CustomTextFormField(labelText: "Email", controller: controller),
+              CustomTextFormField(labelText: "Phone", controller: controller),
+              driverUiController.dobPicker(controller: controller),
               CustomTextFormField(
                 labelText: "Licence No",
                 controller: controller,
@@ -42,44 +80,11 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
                 controller: controller,
                 maxLine: 3,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  driverUiController.customDottedBorders(
-                    logo: Icons.person,
-                    title: "Driver's License",
-                    size: size,
-                    image: File(""),
-                  ),
-                  driverUiController.customDottedBorders(
-                    image: File(""),
-                    logo: Icons.camera_alt_outlined,
-                    title: "Id Card Front",
-                    size: size,
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  driverUiController.customDottedBorders(
-                    logo: Icons.camera_alt_outlined,
-                    title: "Id Card Back",
-                    size: size,
-                    image: File(""),
-                  ),
-                  driverUiController.customDottedBorders(
-                    image: File(""),
-                    logo: Icons.camera_alt_outlined,
-                    title: "Id Card Front",
-                    size: size,
-                  ),
-                ],
-              ),
               CustomTextFormField(
                 labelText: "Years of Experience",
                 controller: controller,
               ),
+              driverUiController.vehicleTypeDropDown(),
             ],
           ),
         ),

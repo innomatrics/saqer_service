@@ -1,23 +1,19 @@
 import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:saqer_services/widgets/custom_snack_bar.dart';
 
 class ImagePickUtil {
-  static Future<File?> pickImage({required BuildContext context}) async {
+  static Future<File?> pickImage({
+    required BuildContext context,
+    required ImageSource source,
+  }) async {
     try {
       File? image;
-      final List<String> allowedExtensions = ['jpg', 'jpeg', 'png'];
-      final FilePickerResult? pickerResult = await FilePicker.platform
-          .pickFiles(
-            type: FileType.image,
-            allowedExtensions: allowedExtensions,
-            allowMultiple: false,
-          );
+      final pickedFile = await ImagePicker().pickImage(source: source);
 
-      if (pickerResult!.files.isNotEmpty) {
-        image = File(pickerResult.files.first.path!);
+      if (pickedFile != null) {
+        image = File(pickedFile.path);
       }
       return image;
     } catch (e) {

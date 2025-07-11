@@ -16,14 +16,14 @@ class DriverDocumentModel {
   final String city;
   //driver
   final String driverImage;
-  final String idCartImage;
   final String licenceImage;
+  final String licenceBackImage;
+  final String idCartImage;
   final String licenceNumber;
   final int yearsOfExperience;
   final String vehicleAutomationType;
   final String status;
   final String? rejectedReason;
-  final String driverDetailsImage;
   final Timestamp? joinedAt;
   DriverDocumentModel({
     required this.id,
@@ -43,7 +43,7 @@ class DriverDocumentModel {
     required this.vehicleAutomationType,
     required this.status,
     this.rejectedReason,
-    required this.driverDetailsImage,
+    required this.licenceBackImage,
     this.joinedAt,
   });
 
@@ -66,7 +66,7 @@ class DriverDocumentModel {
       'vehicleAutomationType': vehicleAutomationType,
       'status': status,
       'rejectedReason': rejectedReason,
-      'driverDetailsImage': driverDetailsImage,
+      'driverDetailsImage': licenceBackImage,
       'joinedAt': joinedAt,
     };
   }
@@ -92,7 +92,7 @@ class DriverDocumentModel {
       rejectedReason: map['rejectedReason'] != null
           ? map['rejectedReason'] as String
           : null,
-      driverDetailsImage: map['driverDetailsImage'] as String,
+      licenceBackImage: map['licenceBackImage'] as String,
       joinedAt: map['joinedAt'] != null ? map['joinedAt'] as Timestamp : null,
     );
   }

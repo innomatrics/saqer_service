@@ -20,7 +20,9 @@ class DriverDocumentProvider extends ChangeNotifier {
   DriverDocumentModel? _driverDocumentModel;
 
   DriverDocumentModel? get driverDocumentModel => _driverDocumentModel;
-
+  //current user data
+  DriverDocumentModel? _currentUserData;
+  DriverDocumentModel? get currentUserData => _currentUserData;
   //loader
   bool _isLoader = false;
   bool get isLoader => _isLoader;
@@ -54,7 +56,7 @@ class DriverDocumentProvider extends ChangeNotifier {
     required File driverImage,
     required File idCartImage,
     required File licenceImage,
-    required File driverDetailsImage,
+    required File licenceBack,
     required String licenceNumber,
     required String yearsOfExperience,
     required String joinedAt,
@@ -69,9 +71,9 @@ class DriverDocumentProvider extends ChangeNotifier {
         path: "$name _$dob _$joinedAt/${driverImage.path}",
       );
       //driver details image
-      final driverDetailsImageUrl = await uploadFileInStorage(
-        file: driverDetailsImage,
-        path: "$name _$dob _$joinedAt/${driverDetailsImage.path}",
+      final licenceBackImage = await uploadFileInStorage(
+        file: licenceBack,
+        path: "$name _$dob _$joinedAt/${licenceBack.path}",
       );
       //id cart image
       final idCartImageUrl = await uploadFileInStorage(
@@ -98,7 +100,7 @@ class DriverDocumentProvider extends ChangeNotifier {
         address: address,
         city: city,
         driverImage: driverImageUrl,
-        driverDetailsImage: driverDetailsImageUrl,
+        licenceBackImage: licenceBackImage,
         idCartImage: idCartImageUrl,
         licenceImage: licenceImageUrl,
         licenceNumber: licenceNumber,
@@ -107,6 +109,7 @@ class DriverDocumentProvider extends ChangeNotifier {
         status: "pending",
       );
       await docRef.set(documentModel.toMap());
+      _currentUserData = documentModel;
       setLoader(false);
       notifyListeners();
       return true;
@@ -117,5 +120,25 @@ class DriverDocumentProvider extends ChangeNotifier {
       }
     }
     return false;
+  }
+
+  //get current user model for verification everytime
+  Future<DriverDocumentModel> getCurrentUserData({
+    required BuildContext context,
+  }) async {
+    try {
+      final DocumentSnapshot docRef = await collectionReference
+          .doc(currentUser!)
+          .get();
+      _currentUserData = DriverDocumentModel.fromMap(
+        (docRef.data() as Map<String, dynamic>),
+      );
+      notifyListeners();
+    } catch (e) {
+      if (context.mounted) {
+        failedSnackBar(message: e.toString(), context: context);
+      }
+    }
+    return _currentUserData!;
   }
 }

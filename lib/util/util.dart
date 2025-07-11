@@ -27,6 +27,10 @@ void normalDialogBox({
   );
 }
 
-void showBottomSheet({required BuildContext context, required Widget child}) {
-  showMaterialModalBottomSheet(context: context, builder: (context) => child);
+void bottomSheet({required BuildContext context, required Widget child}) {
+  showMaterialModalBottomSheet(
+    context: context,
+    expand: true,
+    builder: (context) => child,
+  );
 }

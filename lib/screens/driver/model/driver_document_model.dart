@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class DriverDocumentModel {
   //personal
   final String id;
+  final String driverId;
   final String name;
   final String email;
   final int mobileNumber;
@@ -19,9 +20,14 @@ class DriverDocumentModel {
   final String licenceImage;
   final String licenceNumber;
   final int yearsOfExperience;
+  final String vehicleAutomationType;
+  final String status;
+  final String? rejectedReason;
+  final String driverDetailsImage;
   final Timestamp? joinedAt;
   DriverDocumentModel({
     required this.id,
+    required this.driverId,
     required this.name,
     required this.email,
     required this.mobileNumber,
@@ -34,6 +40,10 @@ class DriverDocumentModel {
     required this.licenceImage,
     required this.licenceNumber,
     required this.yearsOfExperience,
+    required this.vehicleAutomationType,
+    required this.status,
+    this.rejectedReason,
+    required this.driverDetailsImage,
     this.joinedAt,
   });
 
@@ -41,6 +51,7 @@ class DriverDocumentModel {
     return <String, dynamic>{
       'id': id,
       'name': name,
+      'driverId': driverId,
       'email': email,
       'mobileNumber': mobileNumber,
       'age': age,
@@ -52,6 +63,10 @@ class DriverDocumentModel {
       'licenceImage': licenceImage,
       'licenceNumber': licenceNumber,
       'yearsOfExperience': yearsOfExperience,
+      'vehicleAutomationType': vehicleAutomationType,
+      'status': status,
+      'rejectedReason': rejectedReason,
+      'driverDetailsImage': driverDetailsImage,
       'joinedAt': joinedAt,
     };
   }
@@ -59,6 +74,7 @@ class DriverDocumentModel {
   factory DriverDocumentModel.fromMap(Map<String, dynamic> map) {
     return DriverDocumentModel(
       id: map['id'] as String,
+      driverId: map['driverId'] as String,
       name: map['name'] as String,
       email: map['email'] as String,
       mobileNumber: map['mobileNumber'] as int,
@@ -71,7 +87,13 @@ class DriverDocumentModel {
       licenceImage: map['licenceImage'] as String,
       licenceNumber: map['licenceNumber'] as String,
       yearsOfExperience: map['yearsOfExperience'] as int,
-      joinedAt: map['joinedAt'] as Timestamp?,
+      vehicleAutomationType: map['vehicleAutomationType'] as String,
+      status: map['status'] as String,
+      rejectedReason: map['rejectedReason'] != null
+          ? map['rejectedReason'] as String
+          : null,
+      driverDetailsImage: map['driverDetailsImage'] as String,
+      joinedAt: map['joinedAt'] != null ? map['joinedAt'] as Timestamp : null,
     );
   }
 

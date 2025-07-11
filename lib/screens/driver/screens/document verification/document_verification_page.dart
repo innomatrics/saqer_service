@@ -1,11 +1,17 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
-import 'package:saqer_services/screens/driver/document%20verification/controller/document_verification_ui_controller.dart';
+import 'package:saqer_services/screens/driver/screens/bottom%20nav/bottom_nav_bar.dart';
+import 'package:saqer_services/screens/driver/screens/document%20verification/controller/document_verification_ui_controller.dart';
+import 'package:saqer_services/screens/driver/provider/driver_document_provider.dart';
+import 'package:saqer_services/util/util.dart';
+import 'package:saqer_services/widgets/custom_elevated_button.dart';
 import 'package:saqer_services/widgets/custom_text_form_field.dart';
+import 'package:saqer_services/widgets/loader.dart';
 
 class DocumentVerificationPage extends StatefulWidget {
   const DocumentVerificationPage({super.key});
@@ -17,7 +23,16 @@ class DocumentVerificationPage extends StatefulWidget {
 
 class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
   String? driverImagePath;
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
+  final TextEditingController dobController = TextEditingController();
+  final TextEditingController yearsOfExperienceController =
+      TextEditingController();
+  final TextEditingController licenceNumberController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final driverUiController = context.read<DocumentVerificationUiController>();
@@ -136,24 +151,101 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
                   ),
                 ],
               ),
-              CustomTextFormField(labelText: "Name", controller: controller),
-              CustomTextFormField(labelText: "Email", controller: controller),
-              CustomTextFormField(labelText: "Phone", controller: controller),
-              driverUiController.dobPicker(controller: controller),
+              CustomTextFormField(
+                labelText: "Name",
+                controller: nameController,
+              ),
+              CustomTextFormField(
+                labelText: "Email",
+                controller: emailController,
+              ),
+              CustomTextFormField(
+                labelText: "Phone",
+                controller: phoneNumberController,
+                keyboardType: TextInputType.number,
+                prefixIcon: Text(
+                  "+971",
+                  style: TextStyle(color: Colors.grey.shade300),
+                ),
+                maxLength: 10,
+              ),
+              driverUiController.dobPicker(controller: dobController),
               CustomTextFormField(
                 labelText: "Licence No",
-                controller: controller,
+                controller: licenceNumberController,
               ),
               CustomTextFormField(
                 labelText: "Address",
-                controller: controller,
+                controller: addressController,
                 maxLine: 3,
               ),
               CustomTextFormField(
+                labelText: "City",
+                controller: cityController,
+              ),
+              CustomTextFormField(
                 labelText: "Years of Experience",
-                controller: controller,
+                controller: yearsOfExperienceController,
               ),
               driverUiController.vehicleTypeDropDown(),
+              SizedBox(
+                height: size.height * 0.07,
+                width: size.width * 1,
+                child:
+                    Consumer2<
+                      DriverDocumentProvider,
+                      DocumentVerificationUiController
+                    >(
+                      builder: (context, provider, uiController, child) {
+                        final isLoading = provider.isLoader;
+                        return CustomElevatedButton(
+                          child: isLoading
+                              ? const Loader()
+                              : const Text(
+                                  "Submit",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                          onPressed: () async {
+                            final int age = uiController.calculateAge(
+                              DateTime.parse(dobController.text),
+                            );
+                            final bool
+                            isSuccess = await provider.addDriverDetails(
+                              context: context,
+                              name: nameController.text,
+                              email: emailController.text,
+                              mobileNumber: phoneNumberController.text,
+                              age: age,
+                              dob: DateTime.parse(dobController.text),
+                              address: addressController.text,
+                              city: cityController.text,
+                              driverImage: uiController.driverImageFile!,
+                              idCartImage: uiController.idCartImageFile!,
+                              licenceImage: uiController.licenseFrontSide!,
+                              licenceBack: uiController.licenseBackSideImage!,
+                              licenceNumber: licenceNumberController.text,
+                              yearsOfExperience: int.parse(
+                                yearsOfExperienceController.text,
+                              ),
+                              joinedAt: Timestamp.now(),
+                              vehicleAutomationType: uiController.vehicleType!,
+                            );
+
+                            if (isSuccess && context.mounted) {
+                              justNavigateReplacement(
+                                context,
+                                const BottomNavBar(),
+                              );
+                            }
+                          },
+                        );
+                      },
+                    ),
+              ),
             ],
           ),
         ),

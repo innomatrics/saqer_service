@@ -5,6 +5,13 @@ void justNavigate(context, page) {
   Navigator.push(context, MaterialPageRoute(builder: (context) => page));
 }
 
+void justNavigateReplacement(context, page) {
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => page),
+  );
+}
+
 void normalDialogBox({
   required BuildContext context,
   required String title,

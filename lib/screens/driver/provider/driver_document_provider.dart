@@ -49,7 +49,7 @@ class DriverDocumentProvider extends ChangeNotifier {
     required String name,
     required String email,
     required String mobileNumber,
-    required String age,
+    required int age,
     required DateTime dob,
     required String address,
     required String city,
@@ -58,8 +58,8 @@ class DriverDocumentProvider extends ChangeNotifier {
     required File licenceImage,
     required File licenceBack,
     required String licenceNumber,
-    required String yearsOfExperience,
-    required String joinedAt,
+    required int yearsOfExperience,
+    required Timestamp joinedAt,
     required String vehicleAutomationType,
   }) async {
     try {
@@ -95,7 +95,7 @@ class DriverDocumentProvider extends ChangeNotifier {
         name: name,
         email: email,
         mobileNumber: int.parse(mobileNumber),
-        age: int.parse(age),
+        age: age,
         dob: dob,
         address: address,
         city: city,
@@ -104,8 +104,9 @@ class DriverDocumentProvider extends ChangeNotifier {
         idCartImage: idCartImageUrl,
         licenceImage: licenceImageUrl,
         licenceNumber: licenceNumber,
-        yearsOfExperience: int.parse(yearsOfExperience),
+        yearsOfExperience: yearsOfExperience,
         vehicleAutomationType: vehicleAutomationType,
+        joinedAt: Timestamp.now(),
         status: "pending",
       );
       await docRef.set(documentModel.toMap());

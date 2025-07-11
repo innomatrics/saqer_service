@@ -74,6 +74,7 @@ class DocumentVerificationUiController extends ChangeNotifier {
     );
     if (pickedFile!.path.isNotEmpty) {
       setDriver(pickedFile);
+      notifyListeners();
     }
   }
 
@@ -95,6 +96,7 @@ class DocumentVerificationUiController extends ChangeNotifier {
     );
     if (pickedFile!.path.isNotEmpty && context.mounted) {
       setIdCartFront(pickedFile);
+      notifyListeners();
       Navigator.pop(context);
     }
   }
@@ -116,6 +118,7 @@ class DocumentVerificationUiController extends ChangeNotifier {
     );
     if (pickedFile!.path.isNotEmpty && context.mounted) {
       setLicenceFront(pickedFile);
+      notifyListeners();
       Navigator.pop(context);
     }
   }
@@ -138,6 +141,7 @@ class DocumentVerificationUiController extends ChangeNotifier {
     );
     if (pickedFile!.path.isNotEmpty && context.mounted) {
       setIdCartBack(pickedFile);
+      notifyListeners();
       Navigator.pop(context);
     }
   }
@@ -160,6 +164,7 @@ class DocumentVerificationUiController extends ChangeNotifier {
     );
     if (pickedFile!.path.isNotEmpty && context.mounted) {
       setLicenseBackSide(pickedFile);
+      notifyListeners();
       Navigator.pop(context);
     }
   }

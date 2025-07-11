@@ -8,6 +8,7 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? suffixIcon;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
+  final Widget? prefixIcon;
   final int? maxLength;
   const CustomTextFormField({
     super.key,
@@ -18,6 +19,7 @@ class CustomTextFormField extends StatelessWidget {
     this.validator,
     this.maxLength,
     this.keyboardType,
+    this.prefixIcon,
   });
 
   @override
@@ -32,6 +34,7 @@ class CustomTextFormField extends StatelessWidget {
         hintText: labelText,
         counterText: "",
         suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: AppColors.inputBorderColor),

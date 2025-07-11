@@ -3,12 +3,12 @@ import 'package:saqer_services/constants/constants.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final Widget child;
-  final VoidCallback? onPressed;
+  final VoidCallback onPressed;
   final Color? color;
   const CustomElevatedButton({
     super.key,
     required this.child,
-    this.onPressed,
+    required this.onPressed,
     this.color = AppColors.mainColor,
   });
 

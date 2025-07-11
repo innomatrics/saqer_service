@@ -1,8 +1,8 @@
 import 'dart:io';
-
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
+import 'package:saqer_services/screens/driver/document%20verification/controller/document_verification_ui_controller.dart';
 import 'package:saqer_services/widgets/custom_text_form_field.dart';
 
 class DocumentVerificationPage extends StatefulWidget {
@@ -18,6 +18,7 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
   final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final driverUiController = context.read<DocumentVerificationUiController>();
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
@@ -44,13 +45,13 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _customDottedBorders(
+                  driverUiController.customDottedBorders(
                     logo: Icons.person,
                     title: "Driver's License",
                     size: size,
                     image: File(""),
                   ),
-                  _customDottedBorders(
+                  driverUiController.customDottedBorders(
                     image: File(""),
                     logo: Icons.camera_alt_outlined,
                     title: "Id Card Front",
@@ -61,13 +62,13 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _customDottedBorders(
+                  driverUiController.customDottedBorders(
                     logo: Icons.camera_alt_outlined,
                     title: "Id Card Back",
                     size: size,
                     image: File(""),
                   ),
-                  _customDottedBorders(
+                  driverUiController.customDottedBorders(
                     image: File(""),
                     logo: Icons.camera_alt_outlined,
                     title: "Id Card Front",
@@ -110,53 +111,5 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
         ),
       ],
     );
-  }
-
-  Widget _customDottedBorders({
-    required IconData logo,
-    required String title,
-    required File image,
-    required Size size,
-  }) {
-    return image.path.isEmpty
-        ? SizedBox(
-            height: size.height * 0.1,
-            width: size.width * 0.3,
-            child: DottedBorder(
-              options: const RectDottedBorderOptions(
-                dashPattern: [10, 5, 10, 5],
-                strokeWidth: 1,
-                color: AppColors.mainColor,
-                padding: EdgeInsets.all(16),
-              ),
-              child: Column(
-                children: [
-                  Center(
-                    child: Icon(logo, size: 30, color: AppColors.mainColor),
-                  ),
-                  Center(
-                    child: Text(
-                      title,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
-        : Container(
-            height: size.height * 0.1,
-            width: size.width * 0.3,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: FileImage(image),
-                fit: BoxFit.cover,
-              ),
-            ),
-          );
   }
 }

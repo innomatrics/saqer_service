@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
@@ -109,5 +110,54 @@ class DocumentVerificationUiController extends ChangeNotifier {
     if (pickedFile!.path.isNotEmpty) {
       setDriverDetailsImage(pickedFile);
     }
+  }
+
+  //dotted border
+  Widget customDottedBorders({
+    required IconData logo,
+    required String title,
+    required File image,
+    required Size size,
+  }) {
+    return image.path.isEmpty
+        ? SizedBox(
+            height: size.height * 0.1,
+            width: size.width * 0.3,
+            child: DottedBorder(
+              options: const RectDottedBorderOptions(
+                dashPattern: [10, 5, 10, 5],
+                strokeWidth: 1,
+                color: AppColors.mainColor,
+                padding: EdgeInsets.all(16),
+              ),
+              child: Column(
+                children: [
+                  Center(
+                    child: Icon(logo, size: 30, color: AppColors.mainColor),
+                  ),
+                  Center(
+                    child: Text(
+                      title,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        : Container(
+            height: size.height * 0.1,
+            width: size.width * 0.3,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: FileImage(image),
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
   }
 }

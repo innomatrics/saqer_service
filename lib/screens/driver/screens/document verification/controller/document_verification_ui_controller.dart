@@ -2,10 +2,11 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
+import 'package:saqer_services/screens/driver/screens/document%20verification/widget/file_photo_viewer.dart';
 import 'package:saqer_services/util/image_pick_util.dart';
+import 'package:saqer_services/util/util.dart';
 import 'package:saqer_services/widgets/custom_text_form_field.dart';
 
 class DocumentVerificationUiController extends ChangeNotifier {
@@ -178,84 +179,80 @@ class DocumentVerificationUiController extends ChangeNotifier {
     required Size size,
     required VoidCallback cameraOnTap,
     required VoidCallback galleryOnTap,
+    required VoidCallback removeOnTap,
+    required VoidCallback updateOnTap,
   }) {
     return InkWell(
       onTap: () {
-        showMaterialModalBottomSheet(
+        bottomSheetForCameraAndGallery(
           context: context,
-          builder: (context) => Container(
-            padding: const EdgeInsets.all(20),
-            height: size.height * 0.2,
-            width: size.width,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.white,
-            ),
-            child: Column(
-              children: [
-                ListTile(
-                  leading: const Icon(
-                    Icons.camera_alt_outlined,
-                    color: AppColors.mainColor,
-                  ),
-                  title: const Text(
-                    "Camera",
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                  ),
-                  onTap: cameraOnTap,
-                ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.image_outlined,
-                    color: AppColors.mainColor,
-                  ),
-                  title: const Text(
-                    "Gallery",
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                  ),
-                  onTap: galleryOnTap,
-                ),
-              ],
-            ),
-          ),
+          size: size,
+          cameraOnTap: cameraOnTap,
+          galleryOnTap: galleryOnTap,
         );
       },
       child: SizedBox(
         height: size.height * 0.12,
         width: size.width * 0.3,
         child: DottedBorder(
-          options: const RectDottedBorderOptions(
-            dashPattern: [10, 5, 10, 5],
-            strokeWidth: 1,
-            color: AppColors.mainColor,
-            padding: EdgeInsets.all(16),
-          ),
-          child: image.path.isNotEmpty
-              ? ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.file(
-                    image,
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: double.infinity,
-                  ),
-                )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(logo, size: 30, color: AppColors.mainColor),
-                    const SizedBox(height: 5),
-                    Text(
-                      title,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+            child: image.path.isNotEmpty
+                ? InkWell(
+                    onTap: () {
+                      bottomSheet(
+                        context: context,
+                        size: size,
+                        child: Column(
+                          spacing: size.height * 0.01,
+                          children: [
+                            ListTile(
+                              leading: const Icon(Icons.image),
+                              title: const Text("View Image"),
+                              onTap: () {
+                                Navigator.pop(context);
+                                justNavigate(
+                                  context,
+                                  FilePhotoViewer(imagePath: image),
+                                );
+                              },
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.edit),
+                              title: const Text("Update Image"),
+                              onTap: updateOnTap,
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.delete),
+                              title: const Text("Delete Image"),
+                              onTap: removeOnTap,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    child: Image.file(image, fit: BoxFit.cover),
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(logo, size: 30, color: AppColors.mainColor),
+                      const SizedBox(height: 5),
+                      Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+          ),
         ),
       ),
     );

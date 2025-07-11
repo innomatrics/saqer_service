@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
 import 'package:saqer_services/screens/driver/screens/document%20verification/controller/document_verification_ui_controller.dart';
+import 'package:saqer_services/util/util.dart';
 import 'package:saqer_services/widgets/custom_text_form_field.dart';
 
 class DocumentVerificationPage extends StatefulWidget {
@@ -65,6 +66,29 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
                             source: ImageSource.gallery,
                           );
                         },
+                        removeOnTap: () async {
+                          provider.setLicenceFront(File(""));
+                          Navigator.pop(context);
+                        },
+                        updateOnTap: () {
+                          Navigator.pop(context);
+                          bottomSheetForCameraAndGallery(
+                            context: context,
+                            size: size,
+                            cameraOnTap: () {
+                              provider.setLicenceFfrontImage(
+                                context: context,
+                                source: ImageSource.camera,
+                              );
+                            },
+                            galleryOnTap: () {
+                              provider.setLicenceFfrontImage(
+                                context: context,
+                                source: ImageSource.gallery,
+                              );
+                            },
+                          );
+                        },
                       );
                     },
                   ),
@@ -86,6 +110,29 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
                           provider.setLicenseBackSideImageFile(
                             context: context,
                             source: ImageSource.gallery,
+                          );
+                        },
+                        removeOnTap: () {
+                          provider.setLicenseBackSide(File(""));
+                          Navigator.pop(context);
+                        },
+                        updateOnTap: () {
+                          Navigator.pop(context);
+                          bottomSheetForCameraAndGallery(
+                            context: context,
+                            size: size,
+                            cameraOnTap: () {
+                              provider.setLicenseBackSideImageFile(
+                                context: context,
+                                source: ImageSource.camera,
+                              );
+                            },
+                            galleryOnTap: () {
+                              provider.setLicenseBackSideImageFile(
+                                context: context,
+                                source: ImageSource.gallery,
+                              );
+                            },
                           );
                         },
                       );
@@ -116,6 +163,29 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
                             source: ImageSource.gallery,
                           );
                         },
+                        removeOnTap: () {
+                          provider.setIdCartFront(File(""));
+                          Navigator.pop(context);
+                        },
+                        updateOnTap: () {
+                          Navigator.pop(context);
+                          bottomSheetForCameraAndGallery(
+                            context: context,
+                            size: size,
+                            cameraOnTap: () {
+                              provider.setIdCartImageFront(
+                                context: context,
+                                source: ImageSource.camera,
+                              );
+                            },
+                            galleryOnTap: () {
+                              provider.setIdCartImageFront(
+                                context: context,
+                                source: ImageSource.gallery,
+                              );
+                            },
+                          );
+                        },
                       );
                     },
                   ),
@@ -139,6 +209,29 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
                             source: ImageSource.gallery,
                           );
                         },
+                        removeOnTap: () {
+                          provider.setIdCartBack(File(""));
+                          Navigator.pop(context);
+                        },
+                        updateOnTap: () {
+                          Navigator.pop(context);
+                          bottomSheetForCameraAndGallery(
+                            context: context,
+                            size: size,
+                            cameraOnTap: () {
+                              provider.setIdCartBackSideFile(
+                                context: context,
+                                source: ImageSource.camera,
+                              );
+                            },
+                            galleryOnTap: () {
+                              provider.setIdCartBackSideFile(
+                                context: context,
+                                source: ImageSource.gallery,
+                              );
+                            },
+                          );
+                        },
                       );
                     },
                   ),
@@ -156,10 +249,6 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
                 labelText: "Phone",
                 controller: phoneNumberController,
                 keyboardType: TextInputType.number,
-                prefixIcon: Text(
-                  "+971",
-                  style: TextStyle(color: Colors.grey.shade300),
-                ),
                 maxLength: 10,
               ),
               driverUiController.dobPicker(controller: dobController),

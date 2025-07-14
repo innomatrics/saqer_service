@@ -73,8 +73,9 @@ class DocumentVerificationUiController extends ChangeNotifier {
       context: context,
       source: source,
     );
-    if (pickedFile!.path.isNotEmpty) {
+    if (pickedFile!.path.isNotEmpty && context.mounted) {
       setDriver(pickedFile);
+      Navigator.pop(context);
       notifyListeners();
     }
   }

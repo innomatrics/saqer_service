@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
+import 'package:saqer_services/screens/driver/screens/bottom%20nav/driver_bottom_nav_bar.dart';
 import 'package:saqer_services/screens/driver/screens/document%20verification/controller/document_verification_ui_controller.dart';
 import 'package:saqer_services/util/util.dart';
+import 'package:saqer_services/widgets/custom_elevated_button.dart';
 import 'package:saqer_services/widgets/custom_text_form_field.dart';
 
 class DocumentVerificationPage extends StatefulWidget {
@@ -16,7 +18,6 @@ class DocumentVerificationPage extends StatefulWidget {
 }
 
 class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
-  String? driverImagePath;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
@@ -41,7 +42,7 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
             spacing: size.height * 0.02,
             children: [
               const SizedBox(height: 30),
-              _buildImagePicker(isDriverImage: true),
+              _buildImagePicker(isDriverImage: true, size: size),
               const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -270,6 +271,22 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
                 controller: yearsOfExperienceController,
               ),
               driverUiController.vehicleTypeDropDown(),
+              SizedBox(
+                height: size.height * 0.07,
+                width: size.width * 1,
+                child: CustomElevatedButton(
+                  onPressed: () =>
+                      justNavigate(context, const DriverBottomNavBar()),
+                  child: const Text(
+                    "Submit",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
               // SizedBox(
               //   height: size.height * 0.07,
               //   width: size.width * 1,
@@ -335,29 +352,52 @@ class _DocumentVerificationPageState extends State<DocumentVerificationPage> {
     );
   }
 
-  Widget _buildImagePicker({required bool isDriverImage}) {
-    return Stack(
-      alignment: Alignment.bottomRight,
-      children: [
-        CircleAvatar(
-          radius: 50,
-          backgroundColor: Colors.grey.shade300,
-          backgroundImage: isDriverImage && driverImagePath != null
-              ? AssetImage(driverImagePath!) as ImageProvider
-              : null,
-          child: isDriverImage && driverImagePath == null
-              ? const Icon(Icons.person, size: 50, color: Colors.white)
-              : null,
-        ),
-        InkWell(
-          onTap: () {},
-          child: const CircleAvatar(
-            radius: 16,
-            backgroundColor: AppColors.mainColor,
-            child: Icon(Icons.edit, size: 16, color: Colors.white),
-          ),
-        ),
-      ],
+  Widget _buildImagePicker({required bool isDriverImage, required Size size}) {
+    return Consumer<DocumentVerificationUiController>(
+      builder: (context, driverUiController, child) {
+        return Stack(
+          alignment: Alignment.bottomRight,
+          children: [
+            CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.grey.shade300,
+              backgroundImage:
+                  isDriverImage && driverUiController.driverImageFile != null
+                  ? FileImage(driverUiController.driverImageFile!)
+                        as ImageProvider
+                  : null,
+              child: isDriverImage && driverUiController.driverImageFile == null
+                  ? const Icon(Icons.person, size: 50, color: Colors.white)
+                  : null,
+            ),
+            InkWell(
+              onTap: () {
+                bottomSheetForCameraAndGallery(
+                  context: context,
+                  size: size,
+                  cameraOnTap: () {
+                    driverUiController.pickDriverImage(
+                      context: context,
+                      source: ImageSource.camera,
+                    );
+                  },
+                  galleryOnTap: () {
+                    driverUiController.pickDriverImage(
+                      context: context,
+                      source: ImageSource.gallery,
+                    );
+                  },
+                );
+              },
+              child: const CircleAvatar(
+                radius: 16,
+                backgroundColor: AppColors.mainColor,
+                child: Icon(Icons.edit, size: 16, color: Colors.white),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

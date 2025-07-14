@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:saqer_services/constants/constants.dart';
 
 class DriverNotificationsPage extends StatelessWidget {
@@ -46,18 +47,45 @@ class DriverNotificationsPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: const ListTile(
-                      title: Text(
-                        "Notification Title",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                        ),
+                    child: Slidable(
+                      closeOnScroll: true,
+                      direction: Axis.horizontal,
+                      endActionPane: ActionPane(
+                        dragDismissible: true,
+                        closeThreshold: 0.5,
+                        motion: const BehindMotion(),
+                        children: [
+                          SlidableAction(
+                            icon: Icons.delete,
+                            label: "Delete",
+                            backgroundColor: AppColors.bottomNavBarColor,
+                            borderRadius: BorderRadius.circular(12),
+                            autoClose: true,
+                            onPressed: (context) {},
+                          ),
+                        ],
                       ),
-                      subtitle: Text(
-                        "Notification subtitle",
-                        style: TextStyle(color: Colors.grey),
+                      child: const ListTile(
+                        title: Text(
+                          "Notification Title",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        subtitle: Text(
+                          "Notification subtitle",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        leading: Icon(
+                          Icons.notifications,
+                          color: AppColors.mainColor,
+                        ),
                       ),
                     ),
                   );

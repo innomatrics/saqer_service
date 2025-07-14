@@ -4,6 +4,8 @@ class Constants {}
 
 class AppImages {
   static const String appLogo = "assets/images/applogo.png";
+  static const noProfile =
+      "https://i.pinimg.com/736x/2c/47/d5/2c47d5dd5b532f83bb55c4cd6f5bd1ef.jpg";
 }
 
 class AppColors {

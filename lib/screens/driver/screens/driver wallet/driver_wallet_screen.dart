@@ -106,6 +106,48 @@ class _DriverWalletScreenState extends State<DriverWalletScreen> {
                   ],
                 ),
               ),
+              _customContainer(
+                size: size,
+                child: Column(
+                  spacing: size.height * 0.02,
+                  children: [
+                    Row(
+                      children: [
+                        const Text(
+                          "Informations",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Spacer(),
+                        _customIcons(size: size, icon: Icons.edit),
+                      ],
+                    ),
+                    _customText(text1: "Location: ", text2: "Dubai UAE"),
+                    _customText(text1: "Address: ", text2: " UAE"),
+                    _customText(text1: "Wallet ID: ", text2: "Dubai UAE"),
+                  ],
+                ),
+              ),
+              ListView.builder(
+                itemCount: 3,
+                shrinkWrap: true,
+                physics: const ClampingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return const ListTile(
+                    title: Text(
+                      "\$ 500",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -120,15 +162,7 @@ class _DriverWalletScreenState extends State<DriverWalletScreen> {
   }) {
     return Row(
       children: [
-        Container(
-          height: size.height * 0.05,
-          width: size.width * 0.1,
-          decoration: BoxDecoration(
-            color: AppColors.mainColor,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Center(child: Icon(icon, color: Colors.white)),
-        ),
+        _customIcons(size: size, icon: icon),
         const SizedBox(width: 10),
         Text(
           text,
@@ -137,6 +171,61 @@ class _DriverWalletScreenState extends State<DriverWalletScreen> {
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget _customContainer({required Size size, required Widget child}) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      height: size.height * 0.25,
+      width: size.width * 1,
+      decoration: BoxDecoration(
+        color: const Color(0xffF4F6FA),
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: child,
+    );
+  }
+
+  Widget _customIcons({required Size size, required IconData icon}) {
+    return Container(
+      height: size.height * 0.05,
+      width: size.width * 0.1,
+      decoration: BoxDecoration(
+        color: AppColors.mainColor,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Center(child: Icon(icon, color: Colors.white)),
+    );
+  }
+
+  Widget _customText({required String text1, required String text2}) {
+    return Row(
+      children: [
+        Text(
+          text1,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          text2,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: const TextStyle(color: Colors.black, fontSize: 14),
         ),
       ],
     );

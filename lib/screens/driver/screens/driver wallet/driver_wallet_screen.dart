@@ -29,9 +29,10 @@ class _DriverWalletScreenState extends State<DriverWalletScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              //card
               Container(
                 padding: const EdgeInsets.all(16),
-                height: size.height * 0.3,
+                height: size.height * 0.25,
                 width: size.width * 1,
                 decoration: BoxDecoration(
                   color: const Color(0xffF4F6FA),
@@ -45,6 +46,8 @@ class _DriverWalletScreenState extends State<DriverWalletScreen> {
                   ],
                 ),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: size.height * 0.02,
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,6 +80,29 @@ class _DriverWalletScreenState extends State<DriverWalletScreen> {
                         ),
                       ],
                     ),
+                    const Text(
+                      "\$ 500",
+                      style: TextStyle(
+                        color: AppColors.mainColor,
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _customIncomeContainer(
+                          size: size,
+                          icon: Icons.keyboard_arrow_up,
+                          text: "54000",
+                        ),
+                        _customIncomeContainer(
+                          size: size,
+                          icon: Icons.keyboard_arrow_down,
+                          text: "54000",
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -84,6 +110,35 @@ class _DriverWalletScreenState extends State<DriverWalletScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _customIncomeContainer({
+    required Size size,
+    required IconData icon,
+    required String text,
+  }) {
+    return Row(
+      children: [
+        Container(
+          height: size.height * 0.05,
+          width: size.width * 0.1,
+          decoration: BoxDecoration(
+            color: AppColors.mainColor,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Center(child: Icon(icon, color: Colors.white)),
+        ),
+        const SizedBox(width: 10),
+        Text(
+          text,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -12,4 +12,5 @@ class AppColors {
   static const Color mainColor = Color(0xff2E49A0);
   static const Color inputBorderColor = Color(0xffDBDBDB);
   static const Color bottomNavBarColor = Color(0xffF7F7F7);
+  static const Color scaffoldBackgroundColor = Color(0xffFEF7FF);
 }

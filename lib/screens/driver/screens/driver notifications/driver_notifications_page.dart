@@ -9,7 +9,6 @@ class DriverNotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -38,7 +37,7 @@ class DriverNotificationsPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: AppColors.bottomNavBarColor),
-                      color: Colors.white,
+                      color: AppColors.scaffoldBackgroundColor,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.3),

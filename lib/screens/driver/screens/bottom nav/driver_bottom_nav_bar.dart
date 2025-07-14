@@ -32,6 +32,7 @@ class _DriverBottomNavBarState extends State<DriverBottomNavBar> {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         backgroundColor: AppColors.bottomNavBarColor,
+        color: AppColors.scaffoldBackgroundColor,
         index: _currentIndex,
         onTap: (int index) {
           setState(() {

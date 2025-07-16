@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
 import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/credit%20card/view%20model/credit_card_provider.dart';
 import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/money/ui%20controller/add_wallet_money_controller.dart';
-import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/credit%20card/model/credit_card_model.dart';
+import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/credit%20card/model/driver_credit_card_model.dart';
 import 'package:saqer_services/widgets/custom_elevated_button.dart';
 import 'package:saqer_services/widgets/custom_text_form_field.dart';
 
@@ -99,11 +99,8 @@ class _AddWalletMoneyState extends State<AddWalletMoney> {
                             cardNumber: card.maskedNumber,
                             expiryDate: card.expiryDate,
                             cardHolderName: card.cardHolderName,
-                            cvvCode: 'sds',
+                            cvvCode: card.last4Digits,
                             showBackView: false,
-                            isHolderNameVisible: true,
-                            obscureCardNumber: true,
-                            obscureCardCvv: true,
                             cardBgColor: AppColors.mainColor,
                             onCreditCardWidgetChange: (_) {},
                           ),

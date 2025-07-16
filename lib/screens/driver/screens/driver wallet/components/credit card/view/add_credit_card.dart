@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
+import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/credit%20card/ui%20controller/add_credit_card_uicontroller.dart';
+import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/credit%20card/view%20model/credit_card_provider.dart';
 import 'package:saqer_services/widgets/custom_elevated_button.dart';
+import 'package:saqer_services/widgets/loader.dart';
 
 class AddCreditCard extends StatefulWidget {
   const AddCreditCard({super.key});
@@ -47,30 +51,34 @@ class _AddCreditCardState extends State<AddCreditCard> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            CreditCardWidget(
-              enableFloatingCard: false,
-              cardNumber: cardNumber,
-              expiryDate: expiryDate,
-              cardHolderName: cardHolderName,
-              cvvCode: cvvCode,
-              bankName: 'Axis Bank',
-              cardType: CardType.mastercard,
-              showBackView: isCvvFocused,
-              obscureCardNumber: true,
-              obscureCardCvv: true,
-              isHolderNameVisible: true,
-              isSwipeGestureEnabled: true,
-              onCreditCardWidgetChange: (CreditCardBrand _) {},
-              customCardTypeIcons: <CustomCardTypeIcon>[
-                CustomCardTypeIcon(
+            Consumer<AddCreditCardUicontroller>(
+              builder: (context, provider, child) {
+                return CreditCardWidget(
+                  enableFloatingCard: false,
+                  cardNumber: cardNumber,
+                  expiryDate: expiryDate,
+                  cardHolderName: cardHolderName,
+                  cvvCode: cvvCode,
+                  bankName: 'Axis Bank',
                   cardType: CardType.mastercard,
-                  cardImage: Image.asset(
-                    AppImages.masterCard,
-                    height: 48,
-                    width: 48,
-                  ),
-                ),
-              ],
+                  showBackView: isCvvFocused,
+                  obscureCardNumber: true,
+                  obscureCardCvv: true,
+                  isHolderNameVisible: true,
+                  isSwipeGestureEnabled: true,
+                  onCreditCardWidgetChange: (CreditCardBrand _) {},
+                  customCardTypeIcons: <CustomCardTypeIcon>[
+                    CustomCardTypeIcon(
+                      cardType: CardType.elo,
+                      cardImage: Image.asset(
+                        AppImages.masterCard,
+                        height: 48,
+                        width: 48,
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             CreditCardForm(
               cardNumber: cardNumber,
@@ -102,17 +110,33 @@ class _AddCreditCardState extends State<AddCreditCard> {
             SizedBox(
               height: size.height * 0.07,
               width: size.width * 1,
-              child: CustomElevatedButton(
-                child: const Text(
-                  "Add Your Credit Card",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
+              child: Consumer<CreditCardProvider>(
+                builder: (context, provider, child) {
+                  final isLoading = provider.isLoader;
+                  return CustomElevatedButton(
+                    child: isLoading
+                        ? const Loader()
+                        : const Text(
+                            "Add Your Credit Card",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                    onPressed: () {
+                      provider.addCreditCard(
+                        driverId: 'driver-1',
+                        cardid: 'card-1',
+                        maskedNumber: cardNumber,
+                        expiryDate: expiryDate,
+                        cardHolderName: cardHolderName,
+                        paymentToken: 'tok-1',
+                        cardBrand: 'MasterCard',
+                        last4Digits: '1234',
+                      );
+                    },
+                  );
                 },
               ),
             ),

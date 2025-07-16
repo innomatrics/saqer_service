@@ -16,3 +16,15 @@ class AppColors {
   static const Color bottomNavBarColor = Color(0xffF7F7F7);
   static const Color scaffoldBackgroundColor = Color(0xffFEF7FF);
 }
+
+class CreditCardImages {
+  static const String americanExpress = "assets/cards/american.png";
+  static const String discover = "assets/cards/discover.jpg";
+  static const String elo = "assets/cards/elo.jpg";
+  static const String hipercard = "assets/cards/hipercard.png";
+  static const String mir = "assets/cards/mir.png";
+  static const String rupay = "assets/cards/rupay.png";
+  static const String unionpay = "assets/cards/unionpay.png";
+  static const String masterCard = "assets/cards/mastercard.png";
+  static const String visa = "assets/cards/visa.png";
+}

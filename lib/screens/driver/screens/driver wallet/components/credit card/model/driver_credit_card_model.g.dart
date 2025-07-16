@@ -6,21 +6,25 @@ part of 'driver_credit_card_model.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CreditCardModelAdapter extends TypeAdapter<DriverCreditCardModel> {
+class DriverCreditCardModelAdapter extends TypeAdapter<DriverCreditCardModel> {
   @override
   final int typeId = 1;
 
   @override
   DriverCreditCardModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
     return DriverCreditCardModel(
-      cardid: '',
-      driverId: '',
-      maskedNumber: '',
-      expiryDate: '',
-      cardHolderName: '',
-      paymentToken: '',
-      cardBrand: '',
-      last4Digits: '',
+      cardid: fields[0] as String,
+      driverId: fields[1] as String,
+      maskedNumber: fields[3] as String,
+      expiryDate: fields[4] as String,
+      cardHolderName: fields[5] as String,
+      paymentToken: fields[6] as String,
+      cardBrand: fields[7] as String,
+      last4Digits: fields[8] as String,
     );
   }
 
@@ -52,7 +56,7 @@ class CreditCardModelAdapter extends TypeAdapter<DriverCreditCardModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CreditCardModelAdapter &&
+      other is DriverCreditCardModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

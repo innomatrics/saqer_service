@@ -4,7 +4,7 @@ import 'package:saqer_services/constants/constants.dart';
 import 'package:saqer_services/screens/driver/screens/driver%20home%20screen/driver_home_screen.dart';
 import 'package:saqer_services/screens/driver/screens/driver%20notifications/driver_notifications_page.dart';
 import 'package:saqer_services/screens/driver/screens/driver%20profile/driver_profile_page.dart';
-import 'package:saqer_services/screens/driver/screens/driver%20wallet/driver_wallet_screen.dart';
+import 'package:saqer_services/screens/driver/screens/driver%20wallet/view/driver_wallet_screen.dart';
 
 class DriverBottomNavBar extends StatefulWidget {
   const DriverBottomNavBar({super.key});

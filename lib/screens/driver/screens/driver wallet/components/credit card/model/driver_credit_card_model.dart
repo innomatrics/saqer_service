@@ -80,6 +80,11 @@ class DriverCreditCardModel extends HiveObject {
       DriverCreditCardModel.fromMap(
         json.decode(source) as Map<String, dynamic>,
       );
+
+  @override
+  String toString() {
+    return 'DriverCreditCardModel(cardid: $cardid, driverId: $driverId, maskedNumber: $maskedNumber, expiryDate: $expiryDate, cardHolderName: $cardHolderName, paymentToken: $paymentToken, cardBrand: $cardBrand, last4Digits: $last4Digits)';
+  }
 }
 
 final dummyCreditCards = [

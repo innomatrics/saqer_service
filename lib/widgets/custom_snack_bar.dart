@@ -2,11 +2,12 @@ import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:saqer_services/constants/constants.dart';
 
 void successSnackBar({required String message, required BuildContext context}) {
   DelightToastBar(
     builder: (context) => ToastCard(
-      color: Colors.pink,
+      color: AppColors.mainColor,
       title: Text(
         message,
         style: const TextStyle(

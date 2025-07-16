@@ -5,6 +5,7 @@ import 'package:saqer_services/constants/constants.dart';
 import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/credit%20card/ui%20controller/add_credit_card_uicontroller.dart';
 import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/credit%20card/view%20model/credit_card_provider.dart';
 import 'package:saqer_services/widgets/custom_elevated_button.dart';
+import 'package:saqer_services/widgets/custom_snack_bar.dart';
 import 'package:saqer_services/widgets/loader.dart';
 
 class AddCreditCard extends StatefulWidget {
@@ -115,10 +116,30 @@ class _AddCreditCardState extends State<AddCreditCard> {
             SizedBox(
               height: size.height * 0.07,
               width: size.width * 1,
-              child: Consumer<CreditCardProvider>(
-                builder: (context, provider, child) {
+              child: Consumer2<CreditCardProvider, AddCreditCardUicontroller>(
+                builder: (context, provider, uiController, child) {
                   final isLoading = provider.isLoader;
                   return CustomElevatedButton(
+                    onPressed: () async {
+                      final bool isSuccess = await provider.addCreditCard(
+                        driverId: 'driver1',
+                        cardid: '1',
+                        maskedNumber: cardNumber,
+                        expiryDate: expiryDate,
+                        cardHolderName: cardHolderName,
+                        paymentToken: 'token1',
+                        cardBrand: uiController.selectedCardbrand.toString(),
+                        last4Digits: cvvCode,
+                        context: context,
+                      );
+                      if (isSuccess && context.mounted) {
+                        successSnackBar(
+                          message: 'Credit Card Added Successfully',
+                          context: context,
+                        );
+                        Navigator.pop(context);
+                      }
+                    },
                     child: isLoading
                         ? const Loader()
                         : const Text(
@@ -129,18 +150,6 @@ class _AddCreditCardState extends State<AddCreditCard> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                    onPressed: () {
-                      provider.addCreditCard(
-                        driverId: 'driver-1',
-                        cardid: 'card-1',
-                        maskedNumber: cardNumber,
-                        expiryDate: expiryDate,
-                        cardHolderName: cardHolderName,
-                        paymentToken: 'tok-1',
-                        cardBrand: 'MasterCard',
-                        last4Digits: '1234',
-                      );
-                    },
                   );
                 },
               ),

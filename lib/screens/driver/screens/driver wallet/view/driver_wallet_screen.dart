@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
 import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/money/add_wallet_money.dart';
+import 'package:saqer_services/screens/driver/screens/driver%20wallet/view%20model/driver_wallet_provider.dart';
 import 'package:saqer_services/util/util.dart';
 
 class DriverWalletScreen extends StatefulWidget {
@@ -143,22 +145,18 @@ class _DriverWalletScreenState extends State<DriverWalletScreen> {
                   ],
                 ),
               ),
-              ListView.builder(
-                itemCount: 3,
-                shrinkWrap: true,
-                physics: const ClampingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return const ListTile(
-                    title: Text(
-                      "\$ 500",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  );
-                },
+              SizedBox(
+                height: size.height * 0.7,
+                width: size.width * 1,
+                child: Consumer<DriverWalletProvider>(
+                  builder: (context, provider, child) {
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Text("");
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),

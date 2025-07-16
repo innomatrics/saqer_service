@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saqer_services/constants/constants.dart';
+import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/add_wallet_money.dart';
+import 'package:saqer_services/util/util.dart';
 
 class DriverWalletScreen extends StatefulWidget {
   const DriverWalletScreen({super.key});
@@ -13,6 +15,16 @@ class _DriverWalletScreenState extends State<DriverWalletScreen> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        backgroundColor: AppColors.mainColor,
+        elevation: 0,
+        focusElevation: 0,
+        highlightElevation: 0,
+        tooltip: "Add Wallet Money",
+        onPressed: () => justNavigate(context, const AddWalletMoney()),
+        child: const Icon(Icons.add, color: Colors.white),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(

@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
 import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/credit%20card/view%20model/credit_card_provider.dart';
 import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/money/ui%20controller/add_wallet_money_controller.dart';
-import 'package:saqer_services/screens/driver/screens/driver%20wallet/model/dummy_credit_card_model.dart';
+import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/credit%20card/model/credit_card_model.dart';
 import 'package:saqer_services/widgets/custom_elevated_button.dart';
 import 'package:saqer_services/widgets/custom_text_form_field.dart';
 
@@ -49,7 +49,7 @@ class _AddWalletMoneyState extends State<AddWalletMoney> {
             return CustomElevatedButton(
               onPressed: () {
                 final selectedCard =
-                    creditCards[uiController.selectedCardIndex];
+                    dummyCreditCards[uiController.selectedCardIndex];
                 final enteredAmount = amountController.text.trim();
 
                 if (enteredAmount.isEmpty) {
@@ -59,7 +59,7 @@ class _AddWalletMoneyState extends State<AddWalletMoney> {
                   return;
                 }
                 debugPrint("Amount: $enteredAmount");
-                debugPrint("Card: ${selectedCard.cardNumber}");
+                debugPrint("Card: ${selectedCard.maskedNumber}");
 
                 Navigator.pop(context);
               },
@@ -86,20 +86,20 @@ class _AddWalletMoneyState extends State<AddWalletMoney> {
                   builder: (context, uiController, child) {
                     return CardSwiper(
                       controller: swiperController,
-                      cardsCount: creditCards.length,
+                      cardsCount: dummyCreditCards.length,
                       onSwipe: (previousIndex, currentIndex, direction) {
                         uiController.changeIndex = currentIndex!;
                         return true;
                       },
                       cardBuilder: (context, index, percentX, percentY) {
-                        final card = creditCards[index];
+                        final card = dummyCreditCards[index];
                         return AbsorbPointer(
                           absorbing: true,
                           child: CreditCardWidget(
-                            cardNumber: card.cardNumber,
+                            cardNumber: card.maskedNumber,
                             expiryDate: card.expiryDate,
                             cardHolderName: card.cardHolderName,
-                            cvvCode: card.cvvCode,
+                            cvvCode: 'sds',
                             showBackView: false,
                             isHolderNameVisible: true,
                             obscureCardNumber: true,

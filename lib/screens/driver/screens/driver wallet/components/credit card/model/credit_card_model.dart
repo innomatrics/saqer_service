@@ -79,3 +79,46 @@ class CreditCardModel extends HiveObject {
   factory CreditCardModel.fromJson(String source) =>
       CreditCardModel.fromMap(json.decode(source) as Map<String, dynamic>);
 }
+
+final dummyCreditCards = [
+  CreditCardModel(
+    cardid: '1',
+    driverId: 'driver1',
+    maskedNumber: '**** **** **** 1234',
+    expiryDate: '12/24',
+    cardHolderName: 'John Doe',
+    paymentToken: 'token1',
+    cardBrand: 'Visa',
+    last4Digits: '1234',
+  ),
+  CreditCardModel(
+    cardid: '2',
+    driverId: 'driver2',
+    maskedNumber: '**** **** **** 5678',
+    expiryDate: '11/25',
+    cardHolderName: 'Jane Smith',
+    paymentToken: 'token2',
+    cardBrand: 'MasterCard',
+    last4Digits: '5678',
+  ),
+  CreditCardModel(
+    cardid: '3',
+    driverId: 'driver3',
+    maskedNumber: '**** **** **** 9012',
+    expiryDate: '10/23',
+    cardHolderName: 'Alice Johnson',
+    paymentToken: 'token3',
+    cardBrand: 'Amex',
+    last4Digits: '9012',
+  ),
+  CreditCardModel(
+    cardid: '4',
+    driverId: 'driver4',
+    maskedNumber: '**** **** **** 3456',
+    expiryDate: '09/22',
+    cardHolderName: 'Bob Brown',
+    paymentToken: 'token4',
+    cardBrand: 'Discover',
+    last4Digits: '3456',
+  ),
+];

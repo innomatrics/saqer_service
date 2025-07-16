@@ -19,6 +19,9 @@ void main() {
         ),
         ChangeNotifierProvider(create: (_) => AddWalletMoneyController()),
         ChangeNotifierProvider(create: (_) => AddCreditCardUicontroller()),
+        ChangeNotifierProvider(
+          create: (_) => DocumentVerificationUiController(),
+        ),
         //provider
         ChangeNotifierProvider(create: (_) => DriverDocumentProvider()),
         ChangeNotifierProvider(create: (_) => CreditCardProvider()),

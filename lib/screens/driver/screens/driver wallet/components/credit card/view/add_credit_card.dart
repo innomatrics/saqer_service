@@ -53,14 +53,20 @@ class _AddCreditCardState extends State<AddCreditCard> {
           children: [
             Consumer<AddCreditCardUicontroller>(
               builder: (context, provider, child) {
+                final cardType =
+                    provider.selectedCardbrand ?? CardType.mastercard;
+
+                final cardImage = provider
+                    .selectedCardBrandImages[provider.selectedCardbrandIndex];
+
                 return CreditCardWidget(
                   enableFloatingCard: false,
                   cardNumber: cardNumber,
                   expiryDate: expiryDate,
                   cardHolderName: cardHolderName,
                   cvvCode: cvvCode,
-                  bankName: 'Axis Bank',
-                  cardType: CardType.mastercard,
+                  bankName: '',
+                  cardType: cardType,
                   showBackView: isCvvFocused,
                   obscureCardNumber: true,
                   obscureCardCvv: true,
@@ -69,17 +75,14 @@ class _AddCreditCardState extends State<AddCreditCard> {
                   onCreditCardWidgetChange: (CreditCardBrand _) {},
                   customCardTypeIcons: <CustomCardTypeIcon>[
                     CustomCardTypeIcon(
-                      cardType: CardType.elo,
-                      cardImage: Image.asset(
-                        AppImages.masterCard,
-                        height: 48,
-                        width: 48,
-                      ),
+                      cardType: cardType,
+                      cardImage: Image.asset(cardImage, height: 48, width: 48),
                     ),
                   ],
                 );
               },
             ),
+
             CreditCardForm(
               cardNumber: cardNumber,
               cvvCode: cvvCode,
@@ -106,6 +109,8 @@ class _AddCreditCardState extends State<AddCreditCard> {
                 cardHolderDecoration: InputDecoration(labelText: 'Card Holder'),
               ),
             ),
+            const SizedBox(height: 10),
+            context.read<AddCreditCardUicontroller>().pickCardBrand(),
             SizedBox(height: size.height * 0.2),
             SizedBox(
               height: size.height * 0.07,

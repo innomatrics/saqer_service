@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:saqer_services/constants/constants.dart';
+import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/add_credit_card.dart';
+import 'package:saqer_services/util/util.dart';
 
 class DriverProfilePage extends StatelessWidget {
   const DriverProfilePage({super.key});
@@ -64,14 +66,8 @@ class DriverProfilePage extends StatelessWidget {
                   _buildIndividualCard(
                     context: context,
                     icon: Icons.payment,
-                    text: 'Payment Method',
-                    onTap: () {},
-                  ),
-                  _buildIndividualCard(
-                    context: context,
-                    icon: Icons.location_on,
-                    text: 'Saved Locations',
-                    onTap: () {},
+                    text: 'Credit Card',
+                    onTap: () => justNavigate(context, const AddCreditCard()),
                   ),
                   _buildIndividualCard(
                     context: context,

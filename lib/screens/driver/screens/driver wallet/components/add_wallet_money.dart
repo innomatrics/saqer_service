@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:saqer_services/screens/driver/screens/driver%20wallet/model/dummy_credit_card_model.dart';
+import 'package:saqer_services/widgets/custom_elevated_button.dart';
+import 'package:saqer_services/widgets/custom_text_form_field.dart';
 
 class AddWalletMoney extends StatefulWidget {
   const AddWalletMoney({super.key});
@@ -9,90 +12,60 @@ class AddWalletMoney extends StatefulWidget {
 }
 
 class _AddWalletMoneyState extends State<AddWalletMoney> {
-  //form keys
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  //varss
-  String cardNumber = '';
-  String expiryDate = '';
-  String cardHolderName = '';
-  String cvvCode = '';
-
-  void onCreditCardModelChange(CreditCardModel creditCardModel) {
-    setState(() {
-      cardNumber = creditCardModel.cardNumber;
-      expiryDate = creditCardModel.expiryDate;
-      cardHolderName = creditCardModel.cardHolderName;
-      cvvCode = creditCardModel.cvvCode;
-    });
-  }
-
+  //controllers
+  final amountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                //credit card
-                CreditCardWidget(
-                  enableFloatingCard: true,
-                  cardNumber: cardNumber,
-                  expiryDate: expiryDate,
-                  cardHolderName: cardHolderName,
-                  cvvCode: cvvCode,
-                  bankName: 'Axis Bank',
-                  showBackView: true,
-                  obscureCardNumber: true,
-                  obscureCardCvv: true,
-                  isHolderNameVisible: true,
-                  isSwipeGestureEnabled: true,
-                  onCreditCardWidgetChange:
-                      (CreditCardBrand creditCardBrand) {},
-                  customCardTypeIcons: <CustomCardTypeIcon>[
-                    CustomCardTypeIcon(
-                      cardType: CardType.mastercard,
-                      cardImage: Image.asset(
-                        'assets/mastercard.png',
-                        height: 48,
-                        width: 48,
-                      ),
-                    ),
-                  ],
-                ),
-                //form
-                CreditCardForm(
-                  cardNumber: cardNumber,
-                  cvvCode: cvvCode,
-                  isHolderNameVisible: true,
-                  isCardNumberVisible: true,
-                  isExpiryDateVisible: true,
-                  expiryDate: expiryDate,
-                  cardHolderName: cardHolderName,
-                  formKey: formKey,
-                  inputConfiguration: const InputConfiguration(
-                    cardNumberDecoration: InputDecoration(
-                      labelText: 'Number',
-                      hintText: 'XXXX XXXX XXXX XXXX',
-                    ),
-                    expiryDateDecoration: InputDecoration(
-                      labelText: 'Expired Date',
-                      hintText: 'XX/XX',
-                    ),
-                    cvvCodeDecoration: InputDecoration(
-                      labelText: 'CVV',
-                      hintText: 'XXX',
-                    ),
-                    cardHolderDecoration: InputDecoration(
-                      labelText: 'Card Holder',
-                    ),
-                  ),
-                  onCreditCardModelChange: onCreditCardModelChange,
-                ),
-              ],
+    return Scaffold(
+      bottomNavigationBar: Container(
+        margin: const EdgeInsets.all(16),
+        height: size.height * 0.07,
+        width: size.width * 1,
+        child: CustomElevatedButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text(
+            "Add Amount",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: size.height * 0.3,
+                width: size.width * 1,
+                child: ListView.builder(
+                  itemCount: creditCards.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    final cards = creditCards[index];
+                    return CreditCardWidget(
+                      cardNumber: cards.cardNumber,
+                      expiryDate: cards.expiryDate,
+                      cardHolderName: cards.cardHolderName,
+                      cvvCode: cards.cvvCode,
+                      showBackView: true,
+                      onCreditCardWidgetChange: (_) {},
+                    );
+                  },
+                ),
+              ),
+              SizedBox(height: size.height * 0.1),
+              CustomTextFormField(
+                labelText: "Enter Amount",
+                controller: amountController,
+              ),
+            ],
           ),
         ),
       ),

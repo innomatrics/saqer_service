@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saqer_services/constants/constants.dart';
 import 'package:saqer_services/screens/customer/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:saqer_services/screens/driver/screens/auth/driver_login_page.dart';
 import 'package:saqer_services/util/util.dart';
@@ -18,8 +19,8 @@ class WelcomeScreen extends StatelessWidget {
               children: [
                 Positioned.fill(
                   child: Image.asset(
-                    'assets/images/welcome_saqer_services_screen_img.jpg',
-                    fit: BoxFit.cover,
+                    AppImages.introImage,
+                    fit: BoxFit.values[BoxFit.fitHeight.index],
                   ),
                 ),
               ],

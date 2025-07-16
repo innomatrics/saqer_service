@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saqer_services/constants/constants.dart';
-import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/add_wallet_money.dart';
+import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/money/add_wallet_money.dart';
 import 'package:saqer_services/util/util.dart';
 
 class DriverWalletScreen extends StatefulWidget {

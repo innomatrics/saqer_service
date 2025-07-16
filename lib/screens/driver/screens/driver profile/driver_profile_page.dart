@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:saqer_services/constants/constants.dart';
-import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/add_credit_card.dart';
+import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/credit%20card/view/add_credit_card.dart';
 import 'package:saqer_services/util/util.dart';
 
 class DriverProfilePage extends StatelessWidget {

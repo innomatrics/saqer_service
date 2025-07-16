@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
-import 'package:provider/provider.dart';
 import 'package:saqer_services/constants/constants.dart';
 
 class AddCreditCardUicontroller extends ChangeNotifier {
-  //card brand controllers
-
   int _selectedCardbrandIndex = 0;
   int get selectedCardbrandIndex => _selectedCardbrandIndex;
 
-  CardType? selectedCardbrand;
-  List<CardType> cardBrands = [
+  CardType? selectedCardbrand = CardType.mastercard;
+
+  // Define the available card types
+  final List<CardType> cardBrands = [
     CardType.mastercard,
     CardType.visa,
     CardType.rupay,
@@ -22,7 +21,8 @@ class AddCreditCardUicontroller extends ChangeNotifier {
     CardType.mir,
   ];
 
-  List<String> selectedCardBrandImages = [
+  // Images matching the card types
+  final List<String> selectedCardBrandImages = [
     CreditCardImages.masterCard,
     CreditCardImages.visa,
     CreditCardImages.rupay,
@@ -34,63 +34,68 @@ class AddCreditCardUicontroller extends ChangeNotifier {
     CreditCardImages.mir,
   ];
 
-  //to change the index
+  // Get label for card type
+  String getCardLabel(CardType type) {
+    switch (type) {
+      case CardType.visa:
+        return 'Visa';
+      case CardType.mastercard:
+        return 'MasterCard';
+      case CardType.americanExpress:
+        return 'American Express';
+      case CardType.rupay:
+        return 'RuPay';
+      case CardType.unionpay:
+        return 'UnionPay';
+      case CardType.discover:
+        return 'Discover';
+      case CardType.elo:
+        return 'Elo';
+      case CardType.hipercard:
+        return 'Hipercard';
+      case CardType.mir:
+        return 'Mir';
+      default:
+        return 'Other';
+    }
+  }
+
+  // Set selected brand index
   void setSelectedCardBrandIndex(int index) {
     _selectedCardbrandIndex = index;
     notifyListeners();
   }
 
-  // to change the card brand
+  // Set selected card brand
   void setCardBrands(CardType value) {
     selectedCardbrand = value;
+    final index = cardBrands.indexOf(value);
+    if (index != -1) {
+      _selectedCardbrandIndex = index;
+    }
     notifyListeners();
   }
 
-  CardType mapBrandToCardType(String brand) {
-    switch (brand.toLowerCase()) {
-      case 'visa':
-        return CardType.visa;
-      case 'mastercard':
-        return CardType.mastercard;
-      case 'americanexpress':
-        return CardType.americanExpress;
-      case 'rupay':
-        return CardType.rupay;
-      case 'unionpay':
-        return CardType.unionpay;
-      case 'discover':
-        return CardType.discover;
-      case 'elo':
-        return CardType.elo;
-      case 'hipercard':
-        return CardType.hipercard;
-      case 'mir':
-        return CardType.mir;
-      default:
-        return CardType.otherBrand;
-    }
-  }
-
+  // Dropdown widget
   Widget pickCardBrand() {
-    return Consumer<AddCreditCardUicontroller>(
-      builder: (context, provider, child) {
-        return DropdownButtonFormField<CardType>(
-          value: provider.selectedCardbrand,
-          items: provider.cardBrands
-              .map(
-                (cardType) => DropdownMenuItem(
-                  value: cardType,
-                  child: Text(cardType.toString().split('.').last),
-                ),
-              )
-              .toList(),
-          onChanged: (value) {
-            if (value != null) {
-              provider.setCardBrands(value);
-            }
-          },
+    return DropdownButtonFormField<CardType>(
+      value: selectedCardbrand,
+      items: cardBrands.map((cardType) {
+        return DropdownMenuItem<CardType>(
+          value: cardType,
+          child: Text(getCardLabel(cardType)),
         );
+      }).toList(),
+      onChanged: (CardType? value) {
+        if (value != null) {
+          setCardBrands(value);
+        }
       },
+      decoration: const InputDecoration(
+        labelText: 'Select Card Brand',
+        border: OutlineInputBorder(),
+        contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      ),
     );
   }
 }

@@ -30,4 +30,13 @@ class DriverWalletProvider extends ChangeNotifier {
     }
     return false;
   }
+
+  double get totalAvailableBalance {
+    double total = 0.0;
+
+    for (final wallet in _driverWallet) {
+      total += wallet.balance;
+    }
+    return total;
+  }
 }

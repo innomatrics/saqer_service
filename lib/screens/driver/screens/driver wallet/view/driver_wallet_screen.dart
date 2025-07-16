@@ -59,65 +59,69 @@ class _DriverWalletScreenState extends State<DriverWalletScreen> {
                     ),
                   ],
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: size.height * 0.02,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Consumer<DriverWalletProvider>(
+                  builder: (context, provider, child) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: size.height * 0.02,
                       children: [
-                        const Text(
-                          "Balance",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        Container(
-                          height: size.height * 0.04,
-                          width: size.width * 0.1,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: AppColors.mainColor,
-                          ),
-                          child: const Center(
-                            child: Text(
-                              "\$",
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Balance",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w400,
                               ),
                             ),
+                            Container(
+                              height: size.height * 0.04,
+                              width: size.width * 0.1,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: AppColors.mainColor,
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  "\$",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          "\$ ${provider.totalAvailableBalance}",
+                          style: const TextStyle(
+                            color: AppColors.mainColor,
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                      ],
-                    ),
-                    const Text(
-                      "\$ 500",
-                      style: TextStyle(
-                        color: AppColors.mainColor,
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _customIncomeContainer(
-                          size: size,
-                          icon: Icons.keyboard_arrow_up,
-                          text: "54000",
-                        ),
-                        _customIncomeContainer(
-                          size: size,
-                          icon: Icons.keyboard_arrow_down,
-                          text: "54000",
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _customIncomeContainer(
+                              size: size,
+                              icon: Icons.keyboard_arrow_up,
+                              text: "0",
+                            ),
+                            _customIncomeContainer(
+                              size: size,
+                              icon: Icons.keyboard_arrow_down,
+                              text: "0",
+                            ),
+                          ],
                         ),
                       ],
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
               _customContainer(
@@ -151,8 +155,29 @@ class _DriverWalletScreenState extends State<DriverWalletScreen> {
                 child: Consumer<DriverWalletProvider>(
                   builder: (context, provider, child) {
                     return ListView.builder(
+                      itemCount: provider.driverWallet.length,
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return Text("");
+                        final data = provider.driverWallet[index];
+                        return ListTile(
+                          title: Text(
+                            data.creditCards.cardHolderName,
+                            style: const TextStyle(
+                              color: AppColors.mainColor,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          trailing: Text(
+                            "${data.balance}",
+                            style: const TextStyle(
+                              color: AppColors.mainColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        );
                       },
                     );
                   },

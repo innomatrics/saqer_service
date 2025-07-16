@@ -78,6 +78,10 @@ class _AddWalletMoneyState extends State<AddWalletMoney> {
                         log("Card: ${selectedCard.maskedNumber}");
 
                         if (isSuccess && context.mounted) {
+                          successSnackBar(
+                            message: "Amount added successfully",
+                            context: context,
+                          );
                           Navigator.pop(context);
                         }
                       },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
+import 'package:saqer_services/constants/constants.dart';
 import 'package:saqer_services/screens/driver/screens/driver%20wallet/model/dummy_credit_card_model.dart';
 import 'package:saqer_services/widgets/custom_elevated_button.dart';
 import 'package:saqer_services/widgets/custom_text_form_field.dart';
@@ -18,6 +19,15 @@ class _AddWalletMoneyState extends State<AddWalletMoney> {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: AppColors.mainColor,
+        centerTitle: true,
+        title: const Text(
+          "Add Wallet Money",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+      ),
       bottomNavigationBar: Container(
         margin: const EdgeInsets.all(16),
         height: size.height * 0.07,

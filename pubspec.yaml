@@ -52,8 +52,6 @@ dependencies:
   firebase_messaging: ^15.2.9
   flutter_slidable: ^4.0.0
   flutter_credit_card: ^4.1.0
-  flutter_card_swiper: ^7.0.2
-  flutter_swipe_tutorial: ^1.1.1
 
 dev_dependencies:
   flutter_test:

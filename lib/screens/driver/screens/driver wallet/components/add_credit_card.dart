@@ -35,8 +35,13 @@ class _AddCreditCardState extends State<AddCreditCard> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: const Text('Add Money to Wallet'),
         centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
+        backgroundColor: AppColors.mainColor,
+        title: const Text(
+          'Add Money to Wallet',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

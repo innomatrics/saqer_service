@@ -6,7 +6,7 @@ import 'package:hive/hive.dart';
 part 'credit_card_model.g.dart';
 
 @HiveType(typeId: 1)
-class CreditCardModel extends HiveObject {
+class DriverCreditCardModel extends HiveObject {
   //unique id of the card
   @HiveField(0)
   final String cardid;
@@ -37,7 +37,7 @@ class CreditCardModel extends HiveObject {
   //last 4 digits of the card
   @HiveField(8)
   final String last4Digits;
-  CreditCardModel({
+  DriverCreditCardModel({
     required this.cardid,
     required this.driverId,
     required this.maskedNumber,
@@ -61,8 +61,8 @@ class CreditCardModel extends HiveObject {
     };
   }
 
-  factory CreditCardModel.fromMap(Map<String, dynamic> map) {
-    return CreditCardModel(
+  factory DriverCreditCardModel.fromMap(Map<String, dynamic> map) {
+    return DriverCreditCardModel(
       cardid: map['cardid'] as String,
       driverId: map['driverId'] as String,
       maskedNumber: map['maskedNumber'] as String,
@@ -76,12 +76,14 @@ class CreditCardModel extends HiveObject {
 
   String toJson() => json.encode(toMap());
 
-  factory CreditCardModel.fromJson(String source) =>
-      CreditCardModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory DriverCreditCardModel.fromJson(String source) =>
+      DriverCreditCardModel.fromMap(
+        json.decode(source) as Map<String, dynamic>,
+      );
 }
 
 final dummyCreditCards = [
-  CreditCardModel(
+  DriverCreditCardModel(
     cardid: '1',
     driverId: 'driver1',
     maskedNumber: '**** **** **** 1234',
@@ -91,7 +93,7 @@ final dummyCreditCards = [
     cardBrand: 'Visa',
     last4Digits: '1234',
   ),
-  CreditCardModel(
+  DriverCreditCardModel(
     cardid: '2',
     driverId: 'driver2',
     maskedNumber: '**** **** **** 5678',
@@ -101,7 +103,7 @@ final dummyCreditCards = [
     cardBrand: 'MasterCard',
     last4Digits: '5678',
   ),
-  CreditCardModel(
+  DriverCreditCardModel(
     cardid: '3',
     driverId: 'driver3',
     maskedNumber: '**** **** **** 9012',
@@ -111,7 +113,7 @@ final dummyCreditCards = [
     cardBrand: 'Amex',
     last4Digits: '9012',
   ),
-  CreditCardModel(
+  DriverCreditCardModel(
     cardid: '4',
     driverId: 'driver4',
     maskedNumber: '**** **** **** 3456',

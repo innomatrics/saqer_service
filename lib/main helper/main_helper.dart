@@ -1,6 +1,6 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/credit%20card/model/credit_card_model.dart';
+import 'package:saqer_services/screens/driver/screens/driver%20wallet/components/credit%20card/model/driver_credit_card_model.dart';
 
 class MainHelper {
   void allInits() async {
@@ -16,7 +16,7 @@ class MainHelper {
     //also used encryption
     final encyption = await getEncryptionKey();
     //open the credi card box
-    await Hive.openBox<CreditCardModel>(
+    await Hive.openBox<DriverCreditCardModel>(
       'driverCreditCards',
       collection: "driverCreditcards",
       encryptionCipher: HiveAesCipher(encyption),

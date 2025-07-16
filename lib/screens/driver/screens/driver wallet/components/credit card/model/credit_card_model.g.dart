@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'credit_card_model.dart';
+part of 'driver_credit_card_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CreditCardModelAdapter extends TypeAdapter<CreditCardModel> {
+class CreditCardModelAdapter extends TypeAdapter<DriverCreditCardModel> {
   @override
   final int typeId = 1;
 
   @override
-  CreditCardModel read(BinaryReader reader) {
-    return CreditCardModel(
+  DriverCreditCardModel read(BinaryReader reader) {
+    return DriverCreditCardModel(
       cardid: '',
       driverId: '',
       maskedNumber: '',
@@ -25,7 +25,7 @@ class CreditCardModelAdapter extends TypeAdapter<CreditCardModel> {
   }
 
   @override
-  void write(BinaryWriter writer, CreditCardModel obj) {
+  void write(BinaryWriter writer, DriverCreditCardModel obj) {
     writer
       ..writeByte(8)
       ..writeByte(0)

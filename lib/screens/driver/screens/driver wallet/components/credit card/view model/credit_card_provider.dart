@@ -5,7 +5,7 @@ import 'package:saqer_services/screens/driver/screens/driver%20wallet/components
 import 'package:saqer_services/widgets/custom_snack_bar.dart';
 
 class CreditCardProvider extends ChangeNotifier {
-  List<DriverCreditCardModel> _driverCrediCards = [];
+  final List<DriverCreditCardModel> _driverCrediCards = [];
 
   List<DriverCreditCardModel> get driverCreditCards => _driverCrediCards;
 

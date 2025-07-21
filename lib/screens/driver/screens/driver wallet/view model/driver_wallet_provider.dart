@@ -4,7 +4,7 @@ import 'package:saqer_services/screens/driver/screens/driver%20wallet/model/driv
 import 'package:saqer_services/widgets/custom_snack_bar.dart';
 
 class DriverWalletProvider extends ChangeNotifier {
-  List<DriverWalletModel> _driverWallet = [];
+  final List<DriverWalletModel> _driverWallet = [];
 
   List<DriverWalletModel> get driverWallet => _driverWallet;
 
